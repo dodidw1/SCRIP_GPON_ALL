@@ -50,7 +50,7 @@ ONT-SERNUM adalah untuk serial number ONT
 2.vlan voip TMD 3673
 3.vlan voip PLM 661
 4.vlan voip LBK 569
-5.vlan voip SPJ 1167
+5.vlan voip SPJ 1167, 1168
 6.vlan voip SBR 1197. 1198
 7.vlan voip SAA 3641 s/d 3671
 
