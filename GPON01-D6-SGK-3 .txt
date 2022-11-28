@@ -1,0 +1,47 @@
+onu 4 type ZTEG-F609 sn ZTEGC045251B vport-mode  gemport
+!
+interface gpon-onu_1/1/8:4
+  name JUNNU HATI/162301326372|ZTEGC045251B
+  description JUNNU HATI/162301326372|ZTEGC045251B
+  tcont 1 name VOIP profile UP-1M
+  tcont 2 name SPEEDY profile UP-10M
+  tcont 3 name USEETV profile UP-10M
+  gemport 1 name VOIP tcont 1
+  gemport 1 traffic-limit downstream DOWN-1M 
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-20M 
+  switchport mode hybrid vport 1
+  switchport mode hybrid vport 2
+  switchport mode hybrid vport 3
+  service-port 1 vport 1 user-vlan 2316 vlan 2316 
+  service-port 1 description VOIP
+  service-port 2 vport 2 user-vlan 2809 vlan 2809 
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 111 vlan 111 
+  service-port 3 description USEETV
+  port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 2
+!
+igmp  mvlan 110 source-port gei_1/3/1
+igmp  mvlan 110 receive-port gpon-onu_1/1/8:4 vport 3
+
+pon-onu-mng gpon-onu_1/1/8:4
+  service VOIP gemport 1 vlan 2316
+  service SPEEDY gemport 2 vlan 2809
+  service USEETV gemport 3 vlan 111
+  voip protocol sip
+  voip-ip mode dhcp id 1528534565227 vlan-profile batchVlan2316 host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode pppoe username 162301326372@telkom.net password 1326372 vlan-profile wan2809 host 1
+  sip-service pots_0/1 profile sipprofile userid +625416247192 username +625416247192@telkom.net.id password 600143659 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+  wan 1 service internet host 1
+!
+
+sip-service pots_0/1 profile sipprofile userid +625416247192 username +625416247192@telkom.net.id password 600143659 media-profile mediaprofile

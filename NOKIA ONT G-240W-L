@@ -1,0 +1,67 @@
+cari sn*
+show equipment ont interface | match exact:F2736B3C
+B3A5C16F
+cek redaman*
+show equipment ont optics 1/1/1/2/56
+
+Cek mac*
+configure interface port uni:1/1/1/2/56/1/2
+show vlan bridge-port-fdb 1/1/1/2/56/1/2
+
+Cek voice*
+info configure voice ont voice-sip-port 1/1/1/2/56/2/1
+show voice ont pots operational-data 1/1/1/2/56/2/1
+
+hapus Total*
+configure equipment ont interface 1/1/1/2/56 admin-state down
+configure equipment ont no interface 1/1/1/2/56
+
+1.vlan TMD 584
+2.vlan LPK 586
+3.vlan PLM 588
+4.vlan SPJ 590
+5.vlan LBK 587
+6.vlan SBR 589
+7.vlan SAA 583
+8.VLAN MLK 585
+
+UNTUK ALU VLAN VOICE
+1.vlan voip LPK 1103
+2.vlan voip TMD 3673                                        (CATATAN : Kalo admin Status UP, dicreate ulang modemnya
+3.vlan voip PLM 660				    tunggu start masukkan voicenya tunggu  5s baru test call)
+4.vlan voip LBK 565
+5.vlan voip SPJ 1165
+6.vlan voip SBR 1204
+7.vlan voip SAA 3641 s/d 3671
+
+configure qos interface 1/1/1/2/56/14/1 upstream-queue 0 bandwidth-profile name:UP-1G
+configure qos interface 1/1/1/2/56/14/1 queue 0 shaper-profile name:DOWN-1G
+
+
+configure interface port uni:1/1/1/2/56/14/1 admin-up
+configure bridge port 1/1/1/2/56/14/1 max-unicast-mac 4
+configure bridge port 1/1/1/2/56/14/1 vlan-id 100 tag single-tagged l2fwder-vlan 1165 vlan-scope local qos-profile name:UP-564KF5_DOWN-564KF5
+
+configure bridge port 1/1/1/2/56/14/1 max-unicast-mac 4
+configure bridge port 1/1/1/2/56/14/1 vlan-id 881 tag single-tagged l2fwder-vlan 590 vlan-scope local qos-profile name:UP-11264KB0_DOWN-56320KB0
+
+
+configure qos interface 1/1/1/2/56/1/4 upstream-queue 0 bandwidth-profile name:UP-102400K
+configure qos interface 1/1/1/2/56/1/4 queue 0 shaper-profile name:DOWN-102400K
+configure interface port uni:1/1/1/2/56/1/4 admin-up
+configure bridge port 1/1/1/2/56/1/4 vlan-id 111 
+configure bridge port 1/1/1/2/56/1/4 pvid 111
+configure igmp channel vlan:1/1/1/2/56/1/4:111 max-num-group 10
+configure igmp channel vlan:1/1/1/2/56/1/4:111 preview-packages "[1...1024]"
+
+configure qos interface 1/1/1/2/56/1/1 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/1/2/56/1/1 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/1/2/56/1/1 admin-up
+
+configure qos interface 1/1/1/2/56/1/2 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/1/2/56/1/2 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/1/2/56/1/2 admin-up
+
+configure qos interface 1/1/1/2/56/1/3 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/1/2/56/1/3 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/1/2/56/1/3 admin-up

@@ -1,0 +1,169 @@
+onu 28 type ZTEG-F660 sn ZTEGC0E3375E vport-mode gemport
+!
+
+
+interface gpon-onu_0/13/1:28
+  name 162309800197|ZTEGC0E3375E
+  description  162309800197|ZTEGC0E3375E
+  sn-bind enable sn
+  tcont 2 name VOIP profile UP-10M
+  tcont 3 name SPEEDY profile UP-10M
+  tcont 4 name IPTV profile UP-10M
+  gemport 2 name VOIP unicast tcont 2 dir both
+  gemport 2 traffic-limit downstream DOWN-20M
+  gemport 3 name SPEEDY unicast tcont 3 dir both
+  gemport 3 traffic-limit downstream DOWN-20M
+  gemport 4 name IPTV unicast tcont 4 dir both
+  gemport 4 traffic-limit downstream DOWN-20M
+  switchport mode hybrid vport 2
+  switchport vlan 2881  tag vport 2
+  switchport mode hybrid vport 3
+  switchport vlan 562  tag vport 3
+  switchport mode hybrid vport 4
+  switchport vlan 110-111  tag vport 4
+  port-location format dsl-forum vport 3
+  pppoe-plus enable vport 3
+  igmp  version v3 vport 4
+  igmp  fast-leave enable vport 4
+  igmp  max-groups 1024 vport 4
+  iptv service start  vport 4
+!
+
+igmp mvlan 110 source-port gei_0/6/1
+igmp mvlan 110 receive-port gpon-onu_0/13/1:28 vport 4
+
+
+
+pon-onu-mng gpon-onu_0/13/1:28
+  voip protocol sip
+  flow 2 switch switch_0/1
+  flow 3 switch switch_0/1
+  flow 4 switch switch_0/1
+  flow mode 2 tag-filter vid-filter untag-filter discard
+  flow mode 3 tag-filter vid-filter untag-filter discard
+  flow mode 4 tag-filter vid-filter untag-filter discard
+  flow mode 255 tag-filter vid-filter untag-filter discard
+  flow 2 priority 0 vid 2881
+  flow 3 priority 0 vid 562
+  flow 4 priority 0 vid 110
+  flow 4 priority 0 vid 111
+  flow 255 priority 0 vid 110
+  gemport 2 flow 2
+  gemport 3 flow 3
+  gemport 4 flow 4
+  switchport-bind switch_0/1 iphost 1
+  switchport-bind switch_0/1 iphost 2
+  vlan-filter-mode ethuni eth_0/3 tag-filter vid-filter untag-filter discard
+  vlan-filter ethuni eth_0/3 priority 0 vid 562
+  onu-vlan ethuni eth_0/3 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  ex-vlan ethuni eth_0/4 input-tpid 0x8100 output-tpid 0x8100 down-mode inverse-upstream
+  ex-vlan-table ethuni eth_0/4 rule untag treat AddTag110
+  ex-vlan flow 4 input-tpid 0x8100 output-tpid 0x8100 down-mode inverse-upstream
+  ex-vlan-table flow 4 rule TagWith110 treat ChgTagTo111
+  ip-host 2 dhcp-enable true ping-response true traceroute-response true
+  pppoe 1 nat enable user 162309800197@telkom.net password MNULHL48DN
+  onu-vlan iphost 1 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter transparent
+  vlan-filter-mode iphost 2 tag-filter vid-filter untag-filter discard
+  vlan-filter iphost 1 priority 0 vid 562
+  vlan-filter iphost 2 priority 0 vid 2881
+  sip-agent 1 proxy-server telkom.net.id outbound-proxy 10.0.0.110 primary-dns 0.0.0.0 tcpudp-port 5060 host 2
+  sip-agent 1 rereg-starttime 3
+  dhcp-ip ethuni eth_0/4 from-internet
+!
+
+++++
+
+onu 2 type ZTEG-F609 sn ZTEGC6720DA5 vport-mode  gemport
+!
+
+interface gpon-onu_0/5/3:2
+  name 162301312470|ZTEGC6720DA5
+  description 162301312470|ZTEGC6720DA5
+  tcont 2 name VOIP profile UP-2M
+  tcont 3 name INTERNET profile UP-10M
+  tcont 4 name USEETV profile UP-10M
+  gemport 2 name VOIP unicast tcont 2 dir both
+  gemport 2 traffic-limit downstream DOWN-20M
+  gemport 3 name INTERNET unicast tcont 3 dir both
+  gemport 3 traffic-limit downstream DOWN-20M
+  gemport 4 name USEETV unicast tcont 4 dir both
+  gemport 4 traffic-limit downstream DOWN-20M
+  switchport mode hybrid vport 2
+  switchport mode hybrid vport 3
+  switchport mode hybrid vport 4
+  service-port 2 vport 2 user-vlan 2881 vlan 2881
+  service-port 3 vport 3 user-vlan 562 vlan 562
+  service-port 4 vport 4 user-vlan 111 vlan 111
+  port-location format dsl-forum vport 3
+  dhcp-option82 enable vport 2
+  pppoe-plus enable vport 3
+!
+igmp mvlan 110 source-port gei_0/6/1
+igmp  mvlan 110 receive-port gpon-onu_0/5/3:2 vport 4
+
+pon-onu-mng gpon-onu_0/5/3:2
+  service INTERNET iphost 1 gemport 3 vlan 562
+  service USEETV type iptv gemport 4 vlan 111
+  service VOICE type voip iphost 2 gemport 2 vlan 2881
+  voip protocol sip
+  onu-vlan ethuni eth_0/3 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  ip-host 2 dhcp-enable true ping-response true traceroute-response true
+  pppoe 1 nat enable user 162301312470@telkom.net password 999497642
+  onu-vlan iphost 1 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  sip-agent 1 proxy-server telkom.net.id outbound-proxy 10.0.0.110 primary-dns 0.0.0.0 tcpudp-port 5060 host 2
+  sip-agent 1 rereg-starttime 3
+  sip-user pots_0/1 sip-agent 1 user-aor +625412831136 username +625412831136@telkom.net.id password 123456
+  vlan port eth_0/3 mode tag vlan 562
+  vlan port eth_0/4 mode tag vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  multicast vlan add vlanlist 110
+  multicast vlan tag-strip port eth_0/4 enable
+!
+
+
+onu 19 type ZTEG-F609 sn ZTEGC68BCBB9 vport-mode  gemport
+!
+
+interface gpon-onu_0/12/4:19
+  name 162309800052
+  description 162309800052
+  tcont 2 name VOIP profile UP-2M
+  tcont 3 name INTERNET profile UP-10M
+  tcont 4 name USEETV profile UP-10M
+  gemport 2 name VOIP unicast tcont 2 dir both
+  gemport 2 traffic-limit downstream DOWN-20M
+  gemport 3 name INTERNET unicast tcont 3 dir both
+  gemport 3 traffic-limit downstream DOWN-20M
+  gemport 4 name USEETV unicast tcont 4 dir both
+  gemport 4 traffic-limit downstream DOWN-20M
+  switchport mode hybrid vport 2
+  switchport mode hybrid vport 3
+  switchport mode hybrid vport 4
+  service-port 2 vport 2 user-vlan 2881 vlan 2881
+  service-port 3 vport 3 user-vlan 562 vlan 562
+  service-port 4 vport 4 user-vlan 111 vlan 111
+  port-location format dsl-forum vport 3
+  dhcp-option82 enable vport 2
+  pppoe-plus enable vport 3
+!
+igmp  mvlan 110 source-port gei_1/19/3
+igmp  mvlan 110 receive-port gpon-onu_0/12/4:19 vport 4
+
+pon-onu-mng gpon-onu_0/12/4:19
+  service INTERNET iphost 1 gemport 3 vlan 562
+  service USEETV type iptv gemport 4 vlan 111
+  service VOICE type voip iphost 2 gemport 2 vlan 2881
+  voip protocol sip
+  onu-vlan ethuni eth_0/3 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  ip-host 2 dhcp-enable true ping-response true traceroute-response true
+  pppoe 1 nat enable user 162309800052@telkom.net password SNWOXA23RS
+  onu-vlan iphost 1 up-mode add up-prio 0 up-vid 562 down-mode transparent
+  sip-agent 1 proxy-server telkom.net.id outbound-proxy 10.0.0.110 primary-dns 0.0.0.0 tcpudp-port 5060 host 2
+  sip-agent 1 rereg-starttime 3
+  vlan port eth_0/3 mode tag vlan 562
+  vlan port eth_0/4 mode tag vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  multicast vlan add vlanlist 110
+  multicast vlan tag-strip port eth_0/4 enable
+!

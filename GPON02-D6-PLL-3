@@ -1,0 +1,122 @@
+onu 17 type ZTEG-F609 sn ZTEGC6750A84 vport-mode  gemport
+!
+interface gpon-onu_1/9/1:17
+  name 162310200022|ZTEGC6750A84
+  description 162310200022|ZTEGC6750A84
+  tcont 1 name SPEEDY profile UP-50M
+  tcont 2 name USEETV profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-100M 
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-10M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
+  service-port 1 vport 1 user-vlan 2805 vlan 2805 
+  service-port 1 description SPEEDY
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 3 vport 3 user-vlan 500 vlan 500 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 1
+  dhcpv4-l2-relay-agent enable vport 3
+  pppoe-intermediate-agent enable vport 1
+!
+igmp  mvlan 110 source-port xgei_1/10/2
+igmp  mvlan 110 receive-port gpon-onu_1/9/1:17 vport 2
+
+pon-onu-mng gpon-onu_1/9/1:17
+  service SPEEDY gemport 1 vlan 2805
+  service USEETV gemport 2 vlan 111
+  service VOIP gemport 3 vlan 500
+  voip protocol sip
+  voip-ip mode dhcp id 1482994690680 vlan-profile batchVlan500 host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode pppoe username 162310200022@telkom.net password gaxmea25xj vlan-profile wan2805 host 1
+  sip-service pots_0/1 profile sipprofile userid +62541292xxxx username +62541292xxxx@telkom.net.id password pas321654 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+  veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+  wan 1 service internet host 1
+!
+sip-service pots_0/1 profile sipprofile userid +62541290333 username +62541290333@telkom.net.id password telkom.net media-profile mediaprofile
+
+################################
+  onu 19 type OPEN_FIBERHOME sn FHTT94646788
+!
+interface gpon-onu_1/9/15:19
+  name 161301223589|FHTT94646788
+  tcont 1 name SPEEDY profile UP-10M
+  tcont 2 name USEETV profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-20M
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 200 vlan 2805 
+  service-port 1 description SPEEDY
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 3 vport 3 user-vlan 100 vlan 500 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 1
+  pppoe-intermediate-agent enable vport 1
+!
+igmp  mvlan 110 source-port xgei_1/10/2
+igmp  mvlan 110 receive-port gpon-onu_1/9/15:19 vport 2
+
+pon-onu-mng gpon-onu_1/9/15:19
+  service SPEEDY gemport 1 vlan 200
+  service USEETV gemport 2 vlan 111
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!
+
+==============
+
+  onu 19 type OPEN_HUAWEI sn HWTCF75655A2
+!
+interface gpon-onu_1/4/16:19
+  name 161309001214|HWTCF75655A2
+  tcont 1 name SPEEDY profile UP-10M
+  tcont 2 name USEETV profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-20M
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 200 vlan 2805 
+  service-port 1 description SPEEDY
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 3 vport 3 user-vlan 100 vlan 500 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 1
+  pppoe-intermediate-agent enable vport 1
+!
+igmp  mvlan 110 source-port xgei_1/10/2
+igmp  mvlan 110 receive-port gpon-onu_1/4/16:19 vport 2
+
+pon-onu-mng gpon-onu_1/4/16:19
+  service SPEEDY gemport 1 vlan 200
+  service USEETV gemport 2 vlan 111
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!

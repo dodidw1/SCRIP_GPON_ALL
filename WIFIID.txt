@@ -1,0 +1,34 @@
+onu 7 type ZTEG-F609 sn ZTEGCE7295C7 vport-mode  gemport
+!
+interface gpon-onu_1/1/14:7
+
+  tcont 5 name WIFIID profile UP-20M
+  gemport 5 name WIFIID tcont 5 queue 5
+  gemport 5 traffic-limit downstream DOWN-50M
+  service-port 5 vport 5 user-vlan 197 vlan 197
+!
+
+pon-onu-mng gpon-onu_1/1/14:7
+  service WIFIID gemport 5 vlan 197
+  vlan port eth_0/1 mode tag vlan 197
+  vlan port eth_0/2 mode tag vlan 197
+  vlan port eth_0/3 mode tag vlan 197
+  
+  
+!
+name WMS 1-13978964116
+  description WMS 1-13978964116
+interface gpon-onu_1/5/9:5
+  tcont 1 name WIFICORNER profile UP-22528KB0
+  gemport 1 name WIFICORNER tcont 1
+  gemport 1 traffic-limit downstream DOWN-112640KB0 
+  service-port 1 vport 1 user-vlan 197 vlan 197 
+  service-port 1 description WIFICORNER
+!
+pon-onu-mng gpon-onu_1/5/9:5
+  service WIFICORNER gemport 1 vlan 197
+  vlan port eth_0/1 mode hybrid def-vlan 197
+  vlan port eth_0/3 mode hybrid def-vlan 197
+  dhcp-ip ethuni eth_0/1 from-internet
+  dhcp-ip ethuni eth_0/3 from-internet
+!

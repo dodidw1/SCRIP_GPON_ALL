@@ -1,0 +1,54 @@
+Notik :IN43552810
+mohon bantuan Rekan,reset pass : 123456
+05412831187
+IP : 172.20.167.84 FH
+sekalian cek  di divert dan routing local dan nasional. Password sukses kan..thanks rekann...
+
+
+
+onu 14 type ZTEG-F670L sn ZTEGD08EADCE vport-mode  gemport
+!
+interface gpon-onu_1/2/9:14
+  name  162301904463|ZTEGD08EADCE
+  description  162301904463|ZTEGD08EADCE
+  tcont 1 name VOIP profile UP-1M
+  tcont 2 name SPEEDY profile UP-20M
+  tcont 3 name USEETV profile UP-10M
+  gemport 1 name VOIP tcont 1
+  gemport 1 traffic-limit downstream DOWN-1M 
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-50M 
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
+  service-port 1 vport 1 user-vlan 2978 vlan 2978 
+  service-port 1 description VOIP
+  service-port 2 vport 2 user-vlan 498 vlan 498 
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 111 vlan 111 
+  service-port 3 description USEETV
+  port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 2
+  !
+ 
+igmp  mvlan 110 source-port xgei_1/20/1
+igmp  mvlan 110 receive-port gpon-onu_1/2/9:14 vport 3
+  
+pon-onu-mng gpon-onu_1/2/9:14
+  service VOIP gemport 1 vlan 2978
+  service SPEEDY gemport 2 vlan 498
+  service USEETV gemport 3 vlan 111
+  voip protocol sip
+  voip-ip mode dhcp vlan-profile batchVlan2978 host 2
+  wan-ip 1 mode pppoe username 162301904463@telkom.net password JZYDLY08SM vlan-profile wan498 host 1
+sip-service pots_0/1 profile sipprofile userid +62541744770 username +62541744770@telkom.net.id password pas321654 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+  wan 1 service internet host 1
+!
+
+
+  sip-service pots_0/1 profile sipprofile userid +625416525400 username +625416525400@telkom.net.id password 123456 media-profile mediaprofile
+wan-ip 1 mode pppoe username 162317201938@telkom.net password 466619859 vlan-profile wan498 host 1

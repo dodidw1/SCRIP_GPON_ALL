@@ -1,0 +1,121 @@
+OPEN FIBERHOME
+onu 48 type OPEN_FIBERHOME sn FHTT94656930
+!
+
+interface gpon-onu_1/12/6:48
+  name FHTT94656930  | Config 
+  tcont 2 name USEETV profile UP-10M
+  tcont 1 name SPEEDY profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-10M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-10M
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 1 vport 1 user-vlan 200 vlan 2634  
+  service-port 1 description SPEEDY
+  service-port 3 vport 3 user-vlan 100 vlan 760 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 1
+  pppoe-intermediate-agent enable vport 1
+!
+
+igmp  mvlan 110 source-port  smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/12/6:48 vport 2
+
+pon-onu-mng gpon-onu_1/12/6:48
+  service USEETV gemport 2 vlan 111
+  service SPEEDY gemport 1 vlan 200
+  service VOIP   gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!
+
+==============================================================================
+
+onu 19 type OPEN_FIBERHOME sn FHTT962AED00
+!
+
+interface gpon-onu_1/6/6:19
+  name 161305002997|FHTT962AED00 | Config 
+  tcont 1 name USEETV profile UP-10M
+  tcont 2 name SPEEDY profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name USEETV tcont 1
+  gemport 1 traffic-limit downstream DOWN-10M
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-10M
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 111 vlan 111 
+  service-port 1 description USEETV
+  service-port 2 vport 2 user-vlan 200 vlan 2829
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 100 vlan 505 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 2
+  pppoe-intermediate-agent enable vport 2
+!
+
+igmp  mvlan 110 source-port  xgei_1/10/1
+igmp  mvlan 110 receive-port gpon-onu_1/6/6:19 vport 1
+
+pon-onu-mng gpon-onu_1/6/6:19
+  service USEETV gemport 1 vlan 111
+  service SPEEDY gemport 2 vlan 200
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!
+
+================================================================================
+
+onu 23 type OPEN_FIBERHOME sn FHTT9617BB88
+!
+
+interface gpon-onu_1/6/6:19
+  name 161305200517|FHTT9617BB88 | Config 
+  tcont 1 name USEETV profile UP-10M
+  tcont 3 name SPEEDY profile UP-10M
+  tcont 2 name VOIP profile UP-1M
+  gemport 1 name USEETV tcont 1
+  gemport 1 traffic-limit downstream DOWN-10M
+  gemport 3 name SPEEDY tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M
+  gemport 2 name VOIP tcont 2
+  gemport 2 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 111 vlan 111 
+  service-port 1 description USEETV
+  service-port 3 vport 3 user-vlan 200 vlan 566 
+  service-port 3 description SPEEDY
+  service-port 2 vport 2 user-vlan 100 vlan 3017 
+  service-port 2 description VOIP
+  port-identification format DSL-FORUM-PON vport 3
+  pppoe-intermediate-agent enable vport 3
+!
+
+igmp  mvlan 110 source-port  xgei_1/19/1
+igmp  mvlan 110 receive-port gpon-onu_1/6/6:19 vport 1
+
+pon-onu-mng gpon-onu_1/6/6:19
+  service USEETV gemport 1 vlan 111
+  service SPEEDY gemport 3 vlan 200
+  service VOIP gemport 2 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!

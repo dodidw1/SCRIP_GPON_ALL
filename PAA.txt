@@ -1,0 +1,53 @@
+
+
+GPON00-D6-PAA-3(config)#sh
+GPON00-D6-PAA-3(config)#show onu running config gpon-onu_1/9/16:4
+
+onu 5 type ZTEG-F609 sn ZTEGC84C0903 vport-mode  gemport
+!
+
+interface gpon-onu_1/9/16:5
+  name 161301219273|ZTEGC84C0903
+  description 161301219273
+  tcont 1 name VOIP profile UP-564KF5
+  tcont 2 name SPEEDY profile UP-2253KB0
+  tcont 3 name USEETV profile UP-2253KA4
+  gemport 1 name VOIP tcont 1
+  gemport 1 traffic-limit downstream DOWN-564KF5
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-11264KB0
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-9012KA4
+  service-port 1 vport 1 user-vlan 3770 vlan 3770
+  service-port 1 description VOIP
+  service-port 2 vport 2 user-vlan 572 vlan 572
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 111 vlan 111
+  service-port 3 description USEETV
+  port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 2
+!
+igmp  mvlan 110 source-port xgei_1/20/1
+igmp  mvlan 110 receive-port gpon-onu_1/9/16:5 vport 3
+
+pon-onu-mng gpon-onu_1/9/16:5
+  service VOIP gemport 1 vlan 3770
+  service SPEEDY gemport 2 vlan 572
+  service USEETV gemport 3 vlan 111
+  voip protocol sip
+  voip-ip mode dhcp id 1540099369870 vlan-profile batchVlan3770 host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode pppoe username 161301219273@telkom.net password 369011807 vlan-profile wan572 host 1
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+  veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+  wan 1 service internet host 1
+!
+
+
+Building configuration...
+

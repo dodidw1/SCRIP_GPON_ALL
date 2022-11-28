@@ -1,0 +1,213 @@
+
+#hapus ONu#
+configure equipment ont interface 1/1/5/11/4 admin-state down
+configure equipment ont no interface 1/1/5/11/4
+
+#CEK MAC YG TERTANAM DI PORT LAN#
+configure interface port uni:1/1/5/11/4/6/1
+show vlan bridge-port-fdb 1/1/5/11/4/6/1
+
+#CARI SN#
+FHTT9C713AF8                                                                                              
+show equipment ont interface | match exact:9B24B230
+
+#CEK REDAMAN# 
+show equipment ont optics 1/1/5/11/4
+
+#mematikan alaram#
+environment inhibit-alarms 
+
+#cek VLan yg tertanam di modem alu#
+show vlan bridge-port-fdb 1/1/5/11/4/voip 
+
+#CEK PROXY VOICE#
+info configure voice ont uri-prof 
+
+#CEK VOICE#
+info configure voice ont voice-sip-port 1/1/5/11/4/2/1
+show voice ont pots operational-data 1/1/5/11/4/2/1
+
+
+*********Craete ONT APA AJA DI OLT ALU SETELAH DI TANAM LALU KE WEB ACSIS  **************
+Note:
+Ont slot card ID untuk ONT Merk ZTE adalah 8
+Ont slot card ID untuk ONT Merk HUAWEI adalah 6
+Ont slot card ID untuk ONT Merk FIBERHOME adalah 6
+ONT-SERNUM adalah untuk serial number ONT
+
+
+1.vlan TMD 584
+2.vlan LPK 586
+3.vlan PLM 588
+4.vlan SPJ 590
+5.vlan LBK 587
+6.vlan SBR 589
+7.vlan SAA 583
+
+1.vlan voip LPK 1105
+2.vlan voip TMD 3673
+3.vlan voip PLM 661
+4.vlan voip LBK 569
+5.vlan voip SPJ 1177, 1176
+6.vlan voip SBR 1197, 1198
+7.vlan voip SAA 3641 s/d 3671
+
+
+
+
+-CONFIG HADWARE/Regestrasi ONT
+
+configure equipment ont interface 1/1/5/11/4 sw-ver-pland disabled sernum FHTT:9188CA10 cvlantrans-mode local
+configure equipment ont interface 1/1/5/11/4 admin-state up
+configure equipment ont slot 1/1/5/11/4/1 planned-card-type ethernet plndnumdataports 4 plndnumvoiceports 0 admin-state up
+configure equipment ont slot 1/1/5/11/4/6 planned-card-type veip plndnumdataports 1 plndnumvoiceports 0 admin-state up
+admin save
+
+
+-MODIF GANTI SN ONT 
+
+configure equipment ont interface 1/1/5/11/4 admin-state down
+configure equipment ont interface 1/1/5/11/4 sernum ZTEG:9001C730
+configure equipment ont interface 1/1/5/11/4 admin-state up
+
+Note: Modify ONT hanya untuk type ONT yang sama. Apabila berbeda type ONT, dilakukan 
+dengan konfigurasi ulang yaitu hapus ONT dan create lagi.
+
+
+
+-CONFIG SPEEDY
+
+configure interface port uni:1/1/5/11/4/6/1 admin-up
+configure qos interface 1/1/5/11/4/6/1 upstream-queue 0 bandwidth-profile name:UP-400M
+configure qos interface 1/1/5/11/4/6/1 queue 0 shaper-profile name:DOWN-400M
+configure bridge port 1/1/5/11/4/6/1 max-unicast-mac 4
+configure bridge port 1/1/5/11/4/6/1 vlan-id 200 tag single-tagged l2fwder-vlan 590 vlan-scope local qos-profile name:UP-11264KB0_DOWN-112640KB0
+admin equipment ont interface 1/1/5/11/4 reboot with-active-image
+admin save
+
+-Update Profile ( Update kecepatan
+
+configure bridge port 1/1/5/11/4/6/1 vlan-id 200 tag single-tagged l2fwder-vlan 589 vlan-scope local qos-profile name:?
+UP-112640KB0_DOWN-112*! 
+UP-22528KB0_DOWN-1126*! 
+UP-11264KB0_DOWN-1126*! 
+UP-11264KB0_DOWN-5632*! 
+UP-9012KB0_DOWN-45056*! 
+UP-6759KB0_DOWN-33792*! 
+UP-6759KA4_DOWN-27034*! 
+UP-4506KB0_DOWN-22528*! 
+UP-4506KA4_DOWN-18023*! 
+UP-2253KB0_DOWN-11264*! 
+UP-1690KA4_DOWN-20276*! 
+UP-1127KB0_DOWN-11264*! 
+UP-1127KA4_DOWN-13517*! 
+UP-2253KA4_DOWN-9012K*! 
+UP-564KA4_DOWN-6759KA4! 
+UP-564KF5_DOWN-564KF5 ! 
+FD_HSI_standard       ! 
+FD_HSI_premium        ! 
+FD_Voice              !
+
+-config usee tv
+
+configure qos interface 1/1/5/11/4/6/1 upstream-queue 0 bandwidth-profile name:UP-1G
+configure qos interface 1/1/5/11/4/6/1 queue 0 shaper-profile name:DOWN-1G
+configure bridge port 1/1/5/11/4/6/1 max-unicast-mac 4
+configure bridge port 1/1/5/11/4/6/1 vlan-id 111 tag single-tagged qos-profile name:UP-2253KA4_DOWN-9012KA4
+configure igmp channel vlan:1/1/5/11/4/6/1:111 max-num-group 250
+admin save
+
+configure qos interface 1/1/5/11/4/1/4 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/5/11/4/1/4 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/5/11/4/1/4 admin-up
+configure bridge port 1/1/5/11/4/1/4 max-unicast-mac 4
+configure bridge port 1/1/5/11/4/1/4 vlan-id 111
+configure bridge port 1/1/5/11/4/1/4 pvid 111
+configure igmp channel vlan:1/1/5/11/4/1/4:111 max-num-group 10
+configure igmp channel vlan:1/1/5/11/4/1/4:111 preview-packages "[1...1024]"
+
+configure interface port uni:1/1/4/3/37/1/4 admin-up ( buka port lan )
+
+OPEN LAN 1 FH
+
+configure qos interface 1/1/5/11/4/6/1 upstream-queue 0 bandwidth-profile name:UP-1G
+configure qos interface 1/1/5/11/4/6/1 queue 0 shaper-profile name:DOWN-1G
+configure bridge port 1/1/5/11/4/6/1 max-unicast-mac 128
+configure bridge port 1/1/5/11/4/6/1 vlan-id 111 tag single-tagged qos-profile name:UP-2253KA4_DOWN-9012KA4
+configure igmp channel vlan:1/1/5/11/4/6/1:111 max-num-group 250
+
+-DELETE USEETV
+
+configure igmp no channel vlan:1/1/5/11/4/6/1:111
+configure bridge port 1/1/5/11/4/6/1 no vlan-id 111
+
+-voice
+
+configure qos interface 1/1/5/11/4/6/1 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/5/11/4/6/1 queue 0 shaper-profile name:DOWN-40M
+configure bridge port 1/1/5/11/4/6/1 max-unicast-mac 4
+configure bridge port 1/1/5/11/4/6/1 vlan-id 100 tag single-tagged network-vlan 1176 vlan-scope local qos-profile name:UP-2816KB0_DOWN-11264KB0
+admin save
+
+- DELETE VOICE
+configure bridge port 1/1/5/11/4/6/1 no vlan-id 100
+
+== open port lan
+configure qos interface 1/1/5/11/4/1/1 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/5/11/4/1/1 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/5/11/4/1/1 admin-up
+
+
+configure qos interface 1/1/5/11/4/1/2 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/5/11/4/1/2 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/5/11/4/1/2 admin-up
+
+
+configure qos interface 1/1/5/11/4/1/3 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/5/11/4/1/3 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/5/11/4/1/3 admin-up
+
+
+****** Untuk mengecek konfigurasi create Bridge Port untuk vlan 100, 200 dan 111 ****
+Fungsi dari command ini adalah untuk mengecek konfigurasi Bridge port.
+Vlan 100 adalah translasi untuk vlan voice
+Vlan 200 adalah translasi untuk vlan INET
+
+info configure bridge port 1/1/5/11/4/6/1
+
+**** Untuk mengecek konfigurasi create IGMP Port ****
+Fungsi dari command ini adalah untuk mengecek konfigurasi IGMP.
+info configure igmp channel vlan:1/1/5/11/4/6/1:111
+
+**** Untuk mengecek ONT Status ****
+Fungsi dari command ini adalah untuk mengecek status operasional ONT. Dalam 
+kondisi normal, akan menunjukan jarak dari ont ke olt.
+
+show equipment ont operational-data 1/1/5/11/4
+
+**** Untuk mengecek ONT Slot Status ****
+Fungsi dari command ini adalah untuk mengecek status ONT SLOT. Dalam kondisi 
+normal, statusnya harus enabled.
+
+show equipment ont slot 1/1/5/11/4/6
+
+**** Untuk mengecek apakah sudah mendapat mac address atau belum ****
+Fungsi dari command ini adalah untuk mengecek status apakah ont sudahmendapatkan 
+mac addrss atau belum. Dalam kondisi normal, akan menunjukan mac address.
+
+show vlan bridge-port 1/1/5/11/4/6/1
+
+**** Untuk mengecek ONT Version ****
+Fungsi dari command ini adalah untuk mengecek ont software version dari sebuah ONT
+
+show equipment ont interface 1/1/5/11/4/6 detail
+
+info configure equipment ont interface 1/1/5/11/4
+
+
+
+**** UPDATE SPEED TEST ALU ****
+configure bridge port 1/1/3/3/8/6/1 vlan-id 200 tag single-tagged l2fwder-vlan 583 vlan-scope local qos-profile name:?
+configure qos interface 1/1/3/3/8/6/1 upstream-queue 0 bandwidth-profile name:UP-400M
+configure qos interface 1/1/3/3/8/6/1 queue 0 shaper-profile name:DOWN-400M
+

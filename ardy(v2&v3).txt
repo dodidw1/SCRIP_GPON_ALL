@@ -1,0 +1,262 @@
+T3
+username : ws121092a
+Pasword : danpei2112
+
+
+Login masuk
+
+https://10.128.16.131/dana/home/infranet.cgi
+
+username : windy@m.r6.smr.oc3
+Password : shagara201506
+
+login zte: 710147
+password : Abyfikri14
+-------------------------------------------------------------------------------
+
+internet merah
+
+MSAN01-D6-SMR-3MRAA(config)# show dsl port atmpvc port 1/12/18
+port pvcno PVC(VPI-VCI)
+
+0-3-8 0 8-88
+0-3-8 1 7-77
+0-3-8 2 8-83
+0-3-8 3 9-84
+0-3-8 4 9-85
+0-3-8 5 9-86
+0-3-8 6 9-87
+0-3-8 7 0-16
+
+
+MSAN01-D6-SMR-3MRAA(config)# dsl port atmpvc 1/12/18 pvc 0 vpi 0 vci 35
+
+MSAN01-D6-SMR-3MRAA(config)# dsl port atmpvc 1/12/18 pvc 2 vpi 8 vci 88
+
+MSAN01-D6-SMR-3MRAA(config)#
+-----------------------------------------------------------------------------------
+live gak nyala
+mvr add-group vlan 110 group 239.1.1.1 to 239.1.1.254
+mvr add-group vlan 110 group 239.1.1.1 to 239.1.1.254
+igmp enable
+igmp version v2
+igmp mode proxy
+
+
+vlan add-port 111 port 1/12/18 pvc 2 untagged
+dsl port atmpvc 1/12/18 pvc 2 vpi 8 vci 88
+dsl port enable 1/12/18 pvc 2
+mvr add-recvport vlan 110 port 1/12/18 pvc 2
+vlan mvlan-translate set 1/12/18 pvc 2 cvlan untagged mvlan 110
+adsl port lineprofile 1/15/22 P_4096_512.PRF
+
+vlan del-port 70 port 1/15/22 pvc 2 untagged
+vlan add-port 111 port 1/15/22 pvc 2 untagged
+
+dsl port atmpvc 1/15/22 pvc 0 vpi 0 vci 35
+dsl port atmpvc 1/15/22 pvc 2 vpi 8 vci 88
+
+
+=====================MRA BOT
+vlan add-port 111 port 1/15/22 pvc 0 untagged
+dsl port atmpvc 1/15/22 pvc 0 vpi 8 vci 88
+dsl port enable 1/15/22 pvc 0
+mvr add-recvport vlan 110 port 1/15/22 pvc 0
+vlan mvlan-translate set 1/15/22 pvc 0 cvlan untagged mvlan 110
+adsl port lineprofile 1/15/22 P_03072_1024.PRF
+
+vlan del-port 70 port 1/15/22 pvc 0 untagged
+vlan add-port 111 port 1/15/22 pvc 0 untagged
+========================================
+MSAN01-D6-SMR-3MRG(config)# show adsl lineprofile all
+All existed Line Profile:
+-------------------------
+DEFVAL.PRF
+DEF2M.PRF
+DEF1M.PRF
+DEFHM.PRF
+P_3072_512.PRF
+DEF384.PRF
+DEF3M.PRF
+DEF512.PRF
+P_1024_256.PRF
+P_1024_512.PRF
+P_2048_512.PRF
+P_256_64.PRF
+PROFILE_1M.PRF
+P_384_192.PRF
+P_384_96.PRF
+P_4096_512.PRF
+P_512_128.PRF
+P_512_256.PRF
+P_5120_1024.PRF
+P_10M_2M.PRF
+P_03584_1024.PRF
+P_03072_0768.PRF
+P_03584_1280.PRF
+P_00768_0192.PRF
+P_04608_0768.PRF
+P_05120_1280.PRF
+P_07168_0768.PRF
+P_01536_0512.PRF
+P_05632_1280.PRF
+P_01536_0768.PRF
+P_0768_0384.PRF
+P_00768_0384.PRF
+P_00576_0144.PRF
+P_09728_2560.PRF
+P_SYM_128.PRF
+
+
+MSAN01-D6-SMR-3MRG(config)# adsl port lineprofile 0/6/11 P_4096_512.PRF
+
+
+-------------------------------------------------------------------------------------
+
+versi.3
+
+igmp mvlan 110 group 239.1.1.1 to 239.1.1.254
+
+
+igmp mvlan 110 receive-port adsl_1/4/32
+interface adsl_1/4/32
+ atm pvc 1 vpi 8 vci 88
+ pvc 2 enable
+ pvc 3 enable
+ switchport mode hybrid pvc 1
+ switchport default vlan 111 pvc 1
+ switchport vlan 110 untag pvc 1
+ 
+ port-location format dsl-forum pvc 1
+ port-location format dsl-forum pvc 2
+ pppoe-plus enable pvc 1
+ pppoe-plus enable pvc 2
+ igmp version v2 pvc 1
+ adsl profil P_04608_0768.PRF
+ 
+ ++++++++++++++++++++++++++++++ MRD BONTANG V.3
+ 
+ igmp mvlan 110 group 239.1.1.1 to 239.1.1.254
+ igmp mvlan 110 receive-port adsl_2/3/13
+ interface adsl_2/3/11
+  atm pvc 1 vpi 8 vci 88
+  pvc 2 enable
+  pvc 3 enable
+  switchport default vlan 111 pvc 1
+  mvlan-translate 110 to untag pvc 1
+  switchport default vlan 2503 pvc 2
+  port-location format dsl-forum pvc 1
+  port-location format dsl-forum pvc 2
+  pppoe-plus enable pvc 1
+  pppoe-plus enable pvc 2
+  adsl profile P_04608_0768.PRF
+  
+  no switchport default vlan pvc 1
+  switchport default vlan 111 pvc 1
+  
+  no switchport default vlan pvc 2
+  switchport default vlan 2503 pvc 2  
+!
+ =============
+ 
+ MRD BOT
+ 
+ interface adsl_2/3/13
+  atm pvc 1 vpi 8 vci 88
+  pvc 2 enable
+  pvc 3 enable
+  switchport default vlan 111 pvc 1
+  mvlan-translate 110 to untag pvc 1
+  switchport default vlan 2503 pvc 2
+  port-location format dsl-forum pvc 1
+  port-location format dsl-forum pvc 2
+  pppoe-plus enable pvc 1
+  pppoe-plus enable pvc 2
+  adsl profile P_04608_0768.PRF
+
+---------------------------------------------------------------------------------------
+M01-D6-TMD-3MRE(config)#show running-config interface adsl_1/6/8
+Building configuration...
+!
+interface adsl_1/6/8
+ atm pvc 1 vpi 8 vci 88
+ pvc 1 disable
+ pvc 2 enable
+ pvc 3 enable
+ atm pvc 4 vpi 7 vci 77
+ pvc 4 enable
+ switchport mode hybrid pvc 1
+ switchport default vlan 111 pvc 1
+ switchport vlan 110 untag pvc 1
+ switchport default vlan 3304 pvc 2
+ switchport default vlan 70 pvc 3
+________________________________________________________________________
+ubah profile
+
+
+show adsl profile
+interface adsl_1/15/17
+adsl profile P_4096_512.PRF
+
+M01-D6-SMR-3MRX(config)#show adsl profile
+All Existing Line Profiles
+---------------------
+DEF1M.PRF
+DEF2M.PRF
+DEF8M.PRF
+DEFHM.PRF
+DEFVAL.PRF
+P_05632_1280
+P_256_64.PRF
+P_384_96.PRF
+P_384_192.PRF
+P_512_128.PRF
+P_512_256.PRF
+P_1024_256.PRF
+P_1024_512.PRF
+P_2048_512.PRF
+P_3072_512.PRF
+P_4096_512.PRF
+P_5120_1024.PRF
+P_00512_0144.PRF
+P_00512_0192.PRF
+P_00768_0192.PRF
+P_00768_0384.PRF
+P_01536_0512.PRF
+P_01536_0768.PRF
+P_02560_0768.PRF
+P_03072_0768.PRF
+P_03072_1024.PRF
+P_03584_1024.PRF
+P_03584_1280.PRF
+P_04608_0768.PRF
+P_04608_1536.PRF
+P_05120_0768.PRF
+P_05120_1024.PRF
+P_05120_1280.PRF
+P_05632_1024.PRF
+P_05632_1280.PRF
+P_06656_0768.PRF
+P_06656_1280.PRF
+P_06656_2048.PRF
+P_07168_0768.PRF
+P_07168_1024.PRF
+P_07168_1280.PRF
+P_07680_1024.PRF
+P_07680_1280.PRF
+P_07680_1536.PRF
+P_08704_1280.PRF
+P_08704_2048.PRF
+P_09216_1280.PRF
+P_09728_2048.PRF
+P_10752_1280.PRF
+P_10752_2048.PRF
+P_11776_2048.PRF
+P_13824_2048.PRF
+P_15360_1536.PRF
+
+M01-D6-SMR-3MRX(config)#interface adsl_0/3/313
+
+M01-D6-SMR-3MRX(config-if)#adsl profile P_04608_0768.PRF
+
+----------------------------------------------------------------------------------------

@@ -1,0 +1,224 @@
+ veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+
+UPGRADDE OLT
+===========1
+onu 3 type ZTEG-F609 sn ZTEGD10A3E75 vport-mode  gemport
+!
+interface gpon-onu_1/14/16:3
+  name  161313000783|ZTEGD10A3E75
+  description  161313000783|ZTEGD10A3E75
+  tcont 1 name SPEEDY profile UP-50M
+  tcont 2 name VOIP profile UP-1M
+  tcont 3 name USEETV profile UP-10M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-100M 
+  gemport 2 name VOIP tcont 2
+  gemport 2 traffic-limit downstream DOWN-10M
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
+  service-port 1 vport 1 user-vlan 519 vlan 519 
+  service-port 1 description SPEEDY
+  service-port 2 vport 2 user-vlan 3030 vlan 3030 
+  service-port 2 description VOIP
+  service-port 3 vport 3 user-vlan 111 vlan 111 
+  service-port 3 description USEETV
+  port-identification format DSL-FORUM-PON vport 1
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 1
+  !
+ 
+igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/14/16:3 vport 3
+  
+pon-onu-mng gpon-onu_1/14/16:3
+  service SPEEDY gemport 1 vlan 519
+  service VOIP gemport 2 vlan 3030
+  service USEETV gemport 3 vlan 111
+  wan-ip 1 mode pppoe username 161313000783@apps.telkom password 992186970 vlan-profile wan519 host 1
+  voip protocol sip
+  voip-ip mode dhcp vlan-profile batchVlan3030 host 2
+  sip-service pots_0/1 profile sipprofile_110 userid +62541411xxxx username +62541411xxxx@telkom.net.id password pas321654 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+   veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+  wan 1 service internet host 1
+!
+===============2
+onu 5 type ZTEG-F609 sn ZTEGC677014B vport-mode  gemport
+!
+interface gpon-onu_1/14/8:5
+  name  161308200274|ZTEGC677014B
+  description  161308200274|ZTEGC677014B
+  tcont 1 name VOIP profile UP-1M
+  tcont 2 name SPEEDY profile UP-50M
+  tcont 3 name USEETV profile UP-10M
+  gemport 1 name VOIP tcont 1
+  gemport 1 traffic-limit downstream DOWN-1M 
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-100M
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
+  service-port 1 vport 1 user-vlan 3030 vlan 3030 
+  service-port 1 description VOIP
+  service-port 2 vport 2 user-vlan 519 vlan 519 
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 111 vlan 111 
+  service-port 3 description USEETV
+  port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 2
+  !
+ 
+igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/14/8:5 vport 3
+  
+pon-onu-mng gpon-onu_1/14/8:5
+  service VOIP gemport 1 vlan 3030
+  service SPEEDY gemport 2 vlan 519
+  service USEETV gemport 3 vlan 111
+  wan-ip 1 mode pppoe username 161308200274@telkom.net password ezcizh59qy vlan-profile wan519 host 1
+  voip protocol sip
+  voip-ip mode dhcp vlan-profile batchVlan3030 host 2
+  sip-service pots_0/1 profile sipprofile_110 userid +62541240906 username +62541240906@telkom.net.id password pas321654 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+   veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+  wan 1 service internet host 1
+!
+
+sip-service pots_0/1 profile sipprofile_110 userid +62541240266 username +625414116281@telkom.net.id password 123456 media-profile mediaprofile
+
+
+#######################
+3
+
+onu 11 type ZTEG-F670L sn ZTEGCEFD7E32 vport-mode  gemport
+!
+interface gpon-onu_1/16/7:11
+  name 161301212190|ZTEGCEFD7E32
+  description 161301212190
+  tcont 1 name VOIP profile UP-1M
+  tcont 2 name USEETV profile UP-10M
+  tcont 3 name SPEEDY profile UP-10M
+  gemport 1 name VOIP tcont 1
+  gemport 1 traffic-limit downstream DOWN-1M 
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-50M 
+  gemport 3 name SPEEDY tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
+  service-port 1 vport 1 user-vlan 3037 vlan 3037 
+  service-port 1 description VOIP
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 3 vport 3 user-vlan 519 vlan 519 
+  service-port 3 description SPEEDY
+  port-identification format DSL-FORUM-PON vport 3
+  dhcpv4-l2-relay-agent enable vport 1
+  pppoe-intermediate-agent enable vport 3
+!
+igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/16/7:11  vport 2
+
+pon-onu-mng gpon-onu_1/16/7:11
+  service VOIP gemport 1 vlan 3037
+  service USEETV gemport 2 vlan 111
+  service SPEEDY gemport 3 vlan 519
+  voip protocol sip
+  voip-ip mode dhcp id 1532054461412 vlan-profile batchVlan3037 host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode pppoe username 161301212190@telkom.net password BHQVUG18JY vlan-profile wan519 host 1
+  sip-service pots_0/1 profile sipprofile_110 userid +625414116192 username +625414116192@telkom.net.id password telkom.net media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+   veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+  wan 1 service internet host 1
+!
+
+=======================================1
+onu 7 type OPEN_FIBERHOME sn FHTT96F66AB8
+  !
+interface gpon-onu_1/9/14:7
+  tcont 1 name SPEEDY profile UP-10M
+  tcont 2 name USEETV profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name SPEEDY tcont 1
+  gemport 1 traffic-limit downstream DOWN-50M 
+  gemport 2 name USEETV tcont 2
+  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 200 vlan 519 
+  service-port 1 description SPEEDY
+  service-port 2 vport 2 user-vlan 111 vlan 111 
+  service-port 2 description USEETV
+  service-port 3 vport 3 user-vlan 100 vlan 3030 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 1
+  pppoe-intermediate-agent enable vport 1
+!
+igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/9/14:7 vport 2
+
+pon-onu-mng gpon-onu_1/9/14:7
+  service SPEEDY gemport 1 vlan 200
+  service USEETV gemport 2 vlan 111
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+   veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+!
+
+=============================2
+ onu 35 type OPEN_FIBERHOME sn FHTT9C55ADC8
+  !
+interface gpon-onu_1/14/15:35
+  name 161313001458|FHTT9C55ADC8
+  tcont 1 name USEETV profile UP-10M
+  tcont 2 name SPEEDY profile UP-10M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name USEETV tcont 1
+  gemport 1 traffic-limit downstream DOWN-20M 
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 111 vlan 111 
+  service-port 1 description USEETV
+  service-port 2 vport 2 user-vlan 200 vlan 519 
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 100 vlan 3028 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 2
+  pppoe-intermediate-agent enable vport 2
+!
+igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 receive-port gpon-onu_1/14/15:35  vport 1
+
+pon-onu-mng gpon-onu_1/14/15:35
+  service USEETV gemport 1 vlan 111
+  service SPEEDY gemport 2 vlan 200
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+   veip 1 port udp 8080 host 2
+  tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
+!
