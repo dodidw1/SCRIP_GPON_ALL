@@ -1,0 +1,129 @@
+Tols Default
+Config Atas
+show running-config interface gpon-onu_1/
+
+Config Bawah
+show onu running config gpon-onu_1/
+
+Cek Slot
+show gpon onu state gpon-olt_1/
+
+Cek Detek
+show gpon onu uncfg
+
+Power OLT
+show pon power onu-rx gpon-olt_1/
+
+Power Onu 
+show pon power onu-rx gpon-onu_1/
+
+Cek Power Onu
+show pon power attenuation gpon-onu_1/
+
+Cek Voice
+show gpon remote-onu voip-linestatus gpon-onu_1/
+
+Cek IP
+show gpon remote-onu wan-ip gpon-onu_1/
+
+Cek MAC
+show mac gpon onu gpon-onu_1/
+
+Cek LAN
+show gpon remote-onu interface eth gpon-onu_1/
+
+Cek VLAN
+show mac vlan 
+
+Cek Detek+Versi
+show pon onu uncfg
+
+Tols ALU
+Alaram
+environment inhibit-alarms
+
+Cek Redaman
+show equipment ont optics | match exact:1/1/
+
+Cek Slot
+show equipment ont operational-data | match exact:1/1/
+
+Isi Config
+info configure bridge port 1/1/
+
+Cek Speed
+info configure veip flat | match exact:1/1/
+
+Cek No Tertanam
+info configure voice ont voice-sip-port
+
+Cek Onu All
+show equipment ont interface
+
+Cek Detek
+show pon unprovision-onu
+
+Cek Voice
+info configure voice flat | match exact:1/1/
+
+Cek Regis
+show voice ont pots operational-data
+
+Cek Vlan All
+show vlan residential-bridge summary
+
+Bridge Port
+info configure bridge port
+
+IGMP 
+info configure igmp channel vlan:
+
+Onu Status
+show equipment ont operational-data
+
+Cek Mac
+show vlan bridge-port
+
+Ont Slot Status
+show equipment ont slot
+
+ONT Versi 1
+show equipment ont interface
+
+Ont Versi 2
+info configure equipment ont interface 
+
+Cek IP ONT
+show iphost ont operational-data ont:
+
+GPON 6
+Cek Detek
+show pon onu uncfg
+
+Isi Config
+show running-config-interface gpon_onu-1/
+
+Power Olt
+show pon power onu-rx gpon_olt-1/
+
+Power Ont
+show pon power onu-rx gpon_onu-1/
+
+Cek Power Onu 
+show pon power attenuation gpon_onu-1/
+
+Cek Urutan Onu 
+show running-config-interface gpon_olt-1/
+
+Cek IP
+show gpon remote-onu wan-ip gpon_onu-1/
+
+Cek Voice
+show gpon remote-onu voip-linestatus gpon_onu-1/
+
+Cek Slot
+show gpon  onu state gpon_olt-1/
+
+Reg SN
+auth-id sn 
+
