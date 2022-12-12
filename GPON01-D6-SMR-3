@@ -95,11 +95,11 @@ pon-onu-mng gpon-onu_1/14/2:2
 !
  ==========================TKON 3
  
- onu 6 type ZTEG-F609 sn ZTEGCF55323C vport-mode  gemport
+ onu 1 type ZTEG-F609 sn ZTEGCC54DCE4 vport-mode  gemport
 !
-interface gpon-onu_1/9/4:6
-  name 162301801975/ZTEGCF55323C
-  description 162301801975/ZTEGCF55323C
+interface gpon-onu_1/15/6:1
+  name 162301801211/ZTEGCC54DCE4
+  description 162301801211/ZTEGCC54DCE4
   tcont 1 name VOIP profile UP-2M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name SPEEDY profile UP-50M
@@ -121,17 +121,17 @@ interface gpon-onu_1/9/4:6
 !
  
 igmp  mvlan 110 source-port xgei_1/19/2
-igmp  mvlan 110 receive-port gpon-onu_1/9/4:6 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/15/6:1 vport 2
   
-pon-onu-mng gpon-onu_1/9/4:6
+pon-onu-mng gpon-onu_1/15/6:1
   service VOIP gemport 1 vlan 2957
   service USEETV gemport 2 vlan 111
   service SPEEDY gemport 3 vlan 556
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan2957 host 2
-  wan-ip 1 mode pppoe username 162301801975@telkom.net password EJYAPJ04UL vlan-profile wan556 host 1
-  sip-service pots_0/1 profile sipprofile_m40b10 userid +625414113656 username +625414113656@telkom.net.id password pas321654 media-profile mediaprofile
-  sip-service pots_0/2 profile sipprofile_m40b10 userid +6254173xxxx username +6254173xxxx@telkom.net.id password 123456 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 162301801211@telkom.net password ZFAHPO25PR vlan-profile wan556 host 1
+  sip-service pots_0/1 profile sipprofile_m40b10 userid +62541742868 username +62541742868@telkom.net.id password pas321654 media-profile mediaprofile
+  sip-service pots_0/2 profile sipprofile_m40b10 userid +625414120219 username +625414120219@telkom.net.id password pas321654 media-profile mediaprofile
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110

@@ -2,11 +2,11 @@
 
 ######################
 ===TCONT 2
-onu 28 type ZTEG-F670L sn ZTEGC673D04D vport-mode  gemport
+onu 9 type ZTEG-F670L sn ZTEGC6313948 vport-mode  gemport
 !
-interface gpon-onu_1/8/16:28
-  name 161313201414/ZTEGC673D04D
-  description 161313201414/ZTEGC673D04D
+interface gpon-onu_1/2/2:9
+  name 162313202185/ZTEGC6313948
+  description 162313202185/ZTEGC6313948
   tcont 1 name USEETV profile UP-10M
   tcont 2 name SPEEDY profile UP-20M
   tcont 3 name VOIP profile UP-1M
@@ -27,16 +27,16 @@ interface gpon-onu_1/8/16:28
   pppoe-intermediate-agent enable vport 2
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/8/16:28 vport 1
+igmp  mvlan 110 receive-port gpon-onu_1/2/2:9 vport 1
  
-pon-onu-mng gpon-onu_1/8/16:28
+pon-onu-mng gpon-onu_1/2/2:9
   service USEETV gemport 1 vlan 111
   service SPEEDY gemport 2 vlan 2802
   service VOIP gemport 3 vlan 504
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan504 host 2
-  sip-service pots_0/1 profile sipprofile_m40b10 userid +625414108971 username +625414108971@telkom.net.id password pas321654 media-profile mediaprofile
-  wan-ip 1 mode pppoe username 161301207263@telkom.net password 525581184 vlan-profile wan2802 host 1
+  sip-service pots_0/1 profile sipprofile_m40b10 userid +62541663295 username +62541663295@telkom.net.id password pas321654 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 162313202185@telkom.net password brydyj47bh vlan-profile wan2802 host 1
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110

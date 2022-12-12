@@ -2,11 +2,11 @@
  
  UPGRADE OLT 20/7/2018
 
-onu 9 type ZTEG-F609 sn ZTEGC0CDCB7D vport-mode  gemport
+onu 34 type ZTEG-F609 sn ZTEGCF8A65B9 vport-mode  gemport
 !
-interface gpon-onu_1/1/9:9
-  name  161302201061|ZTEGC0CDCB7D
-  description  161302201061|ZTEGC0CDCB7D
+interface gpon-onu_1/2/14:34
+  name  162318800768|ZTEGCF8A65B9
+  description  162318800768|ZTEGCF8A65B9
   tcont 1 name VOIP profile UP-1M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name SPEEDY profile UP-20M
@@ -28,16 +28,16 @@ interface gpon-onu_1/1/9:9
   !
  
 igmp  mvlan 110 source-port xgei_1/4/2
-igmp  mvlan 110 receive-port gpon-onu_1/1/15:5 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/2/14:34 vport 2
   
-pon-onu-mng gpon-onu_1/1/9:9
+pon-onu-mng gpon-onu_1/2/14:34
   service VOIP gemport 1 vlan 501
   service USEETV gemport 2 vlan 111
   service SPEEDY gemport 3 vlan 2783
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan501 host 2
-  wan-ip 1 mode pppoe username 161302201061@telkom.net password WPMDVK57JM vlan-profile wan2783 host 1
-  sip-service pots_0/1 profile sipprofile_110 userid +625414107059 username +625414107059@telkom.net.id password telkom.net media-profile mediaprofile
+  wan-ip 1 mode pppoe username 162318800768@telkom.net password 941840095 vlan-profile wan2783 host 1
+  sip-service pots_0/1 profile sipprofile_110 userid +625417801755 username +625417801755@telkom.net.id password pas321654 media-profile mediaprofile
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110
@@ -136,43 +136,43 @@ pon-onu-mng gpon-onu_1/2/1:18
 
 
 ======================= TCONT 2 FH
-onu 14 type OPEN_FIBERHOME sn FHTT9184FEF8
-!
-interface gpon-onu_1/2/5:14
-  name 161302201236|FHTT9184FEF8
-  tcont 1 name USEETV profile UP-10M
-  tcont 2 name SPEEDY profile UP-20M
-  tcont 3 name VOIP profile UP-1M
-  gemport 1 name USEETV tcont 1
-  gemport 1 traffic-limit downstream DOWN-20M 
-  gemport 2 name SPEEDY tcont 2
-  gemport 2 traffic-limit downstream DOWN-50M 
-  gemport 3 name VOIP tcont 3
-  gemport 3 traffic-limit downstream DOWN-1M 
-  service-port 1 vport 1 user-vlan 111 vlan 111 
-  service-port 1 description USEETV
-  service-port 2 vport 2 user-vlan 200 vlan 2783 
-  service-port 2 description SPEEDY
-  service-port 3 vport 3 user-vlan 100 vlan 506 
-  service-port 3 description VOIP
-  port-identification format DSL-FORUM-PON vport 2
-  pppoe-intermediate-agent enable vport 2
-!
+  onu 11 type OPEN_FIBERHOME sn FHTT95AFD7E0
+  !
+  interface gpon-onu_1/2/14:11
+    name 162318800768|FHTT95AFD7E0
+    tcont 1 name USEETV profile UP-10M
+    tcont 2 name SPEEDY profile UP-20M
+    tcont 3 name VOIP profile UP-1M
+    gemport 1 name USEETV tcont 1
+    gemport 1 traffic-limit downstream DOWN-20M 
+    gemport 2 name SPEEDY tcont 2
+    gemport 2 traffic-limit downstream DOWN-50M 
+    gemport 3 name VOIP tcont 3
+    gemport 3 traffic-limit downstream DOWN-1M 
+    service-port 1 vport 1 user-vlan 111 vlan 111 
+    service-port 1 description USEETV
+    service-port 2 vport 2 user-vlan 200 vlan 2783 
+    service-port 2 description SPEEDY
+    service-port 3 vport 3 user-vlan 100 vlan 500
+    service-port 3 description VOIP
+    port-identification format DSL-FORUM-PON vport 2
+    pppoe-intermediate-agent enable vport 2
+  !
 
-igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/2/5:14 vport 1
+  igmp  mvlan 110 source-port xgei_1/4/2
+  igmp  mvlan 110 receive-port gpon-onu_1/2/14:11 vport 1
 
-pon-onu-mng gpon-onu_1/2/5:14
-  service USEETV gemport 1 vlan 111
-  service SPEEDY gemport 2 vlan 200
-  service VOIP gemport 3 vlan 100
-  switchport-bind switch_0/1 veip 1
-  mvlan 110
-  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
-  vlan-filter veip 1 pri 0 vlan 100
-  vlan-filter veip 1 pri 0 vlan 111
-  vlan-filter veip 1 pri 0 vlan 200
-!
+  pon-onu-mng gpon-onu_1/2/14:11
+    service USEETV gemport 1 vlan 111
+    service SPEEDY gemport 2 vlan 200
+    service VOIP gemport 3 vlan 100
+    switchport-bind switch_0/1 veip 1
+    mvlan 110
+    vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+    vlan-filter veip 1 pri 0 vlan 100
+    vlan-filter veip 1 pri 0 vlan 111
+    vlan-filter veip 1 pri 0 vlan 200
+  !
 ======================= TCONT 1 FH
 onu 14 type OPEN_FIBERHOME sn FHTT9184FEF8
 !
@@ -197,7 +197,7 @@ interface gpon-onu_1/2/5:14
   pppoe-intermediate-agent enable vport 1
 !
 
-igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 source-port xgei_1/4/2
 igmp  mvlan 110 receive-port gpon-onu_1/2/5:14 vport 2
 
 pon-onu-mng gpon-onu_1/2/5:14
@@ -235,7 +235,7 @@ interface gpon-onu_1/1/6:5
   pppoe-intermediate-agent enable vport 3
 !
 
-igmp  mvlan 110 source-port smartgroup1
+igmp  mvlan 110 source-port xgei_1/4/2
 igmp  mvlan 110 receive-port gpon-onu_1/1/6:5 vport 1
 
 pon-onu-mng gpon-onu_1/1/6:5

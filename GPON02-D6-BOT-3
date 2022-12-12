@@ -136,10 +136,10 @@ pon-onu-mng gpon-onu_1/15/2:2
 
 =============TCONT2
 
-onu 25 type OPEN_FIBERHOME sn FHTT9C705EB0
+onu 8 type OPEN_FIBERHOME sn FHTT947AA5E8
 !
-interface gpon-onu_1/3/15:25
-  name 161305202645|FHTT9C705EB0
+interface gpon-onu_1/14/13:8
+  name 161305202645|FHTT947AA5E8
   tcont 1 name USEETV profile UP-10M
   tcont 2 name SPEEDY profile UP-20M
   tcont 3 name VOIP profile UP-1M
@@ -160,9 +160,9 @@ interface gpon-onu_1/3/15:25
 !
 
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/3/15:25 vport 1
+igmp  mvlan 110 receive-port gpon-onu_1/14/13:8 vport 1
 
-pon-onu-mng gpon-onu_1/3/15:25
+pon-onu-mng gpon-onu_1/14/13:8
   service USEETV gemport 1 vlan 111
   service SPEEDY gemport 2 vlan 200
   service VOIP gemport 3 vlan 100

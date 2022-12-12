@@ -5,22 +5,22 @@ show equipment ont interface | match exact:B3A60A10
 FHTT
 
 cek redaman*
-show equipment ont optics 1/1/4/9/22
+show equipment ont optics 1/1/4/7/26
 
 Cek mac*
-configure interface port uni:1/1/4/9/22/1/4
-show vlan bridge-port-fdb 1/1/4/9/22/1/4
+configure interface port uni:1/1/4/7/26/1/4
+show vlan bridge-port-fdb 1/1/4/7/26/1/4
 
 Cek voice*
-info configure voice ont voice-sip-port 1/1/4/9/22/2/1
-show voice ont pots operational-data 1/1/4/9/22/2/1
+info configure voice ont voice-sip-port 1/1/4/7/26/2/1
+show voice ont pots operational-data 1/1/4/7/26/2/1
 
-info configure voice ont voice-sip-port 1/1/4/9/22/2/2
-show voice ont pots operational-data 1/1/4/9/22/2/2
+info configure voice ont voice-sip-port 1/1/4/7/26/2/2
+show voice ont pots operational-data 1/1/4/7/26/2/2
 
 hapus Total*
-configure equipment ont interface 1/1/4/9/22 admin-state down
-configure equipment ont no interface 1/1/4/9/22
+configure equipment ont interface 1/1/4/7/26 admin-state down
+configure equipment ont no interface 1/1/4/7/26
 
 ========
 VLAN INET:
@@ -45,42 +45,42 @@ VLAN VOICE:
 
 ==========
 cek redaman :
-show equipment ont optics 1/1/4/9/22
+show equipment ont optics 1/1/4/7/26
 
 ===============
 hapus onu total :
 
-configure equipment ont interface 1/1/4/9/22 admin-state down
-configure equipment ont no interface 1/1/4/9/22 
+configure equipment ont interface 1/1/4/7/26 admin-state down
+configure equipment ont no interface 1/1/4/7/26 
 
 
 ==================================================
 hapus voice :
 
-configure voice ont pots 1/1/4/9/22/2/1 admin-state locked
-configure voice ont voice-sip-port 1/1/4/9/22/2/1 user-aor none user-name none
+configure voice ont pots 1/1/4/7/26/2/1 admin-state locked
+configure voice ont voice-sip-port 1/1/4/7/26/2/1 user-aor none user-name none
 display-name none password none realm telkom.net.id no ac-code-prof no app-serv-prof no
 ntwk-dp-prof
-configure voice ont voice-port 1/1/4/9/22/2/1 voip-media-prof none
-configure bridge no port 1/1/4/9/22/voip
-configure qos interface 1/1/4/9/22/voip queue [0...3] shaper-profile none
-configure qos interface 1/1/4/9/22/voip upstream-queue 0 no bandwidth-profile
+configure voice ont voice-port 1/1/4/7/26/2/1 voip-media-prof none
+configure bridge no port 1/1/4/7/26/voip
+configure qos interface 1/1/4/7/26/voip queue [0...3] shaper-profile none
+configure qos interface 1/1/4/7/26/voip upstream-queue 0 no bandwidth-profile
 ===================
 hapus configan inet saja :
 
-configure ntp ont 1/1/4/9/22 no key
-configure veip ont 1/1/4/9/22/14/1 no domain-name no admin-state
-configure bridge no port 1/1/4/9/22/14/1
-configure interface port uni:1/1/4/9/22/14/1 no admin-up
-configure qos interface 1/1/4/9/22/14/1 queue 0 shaper-profile none
-configure qos interface 1/1/4/9/22/14/1 upstream-queue 0 no bandwidth-profile
+configure ntp ont 1/1/4/7/26 no key
+configure veip ont 1/1/4/7/26/14/1 no domain-name no admin-state
+configure bridge no port 1/1/4/7/26/14/1
+configure interface port uni:1/1/4/7/26/14/1 no admin-up
+configure qos interface 1/1/4/7/26/14/1 queue 0 shaper-profile none
+configure qos interface 1/1/4/7/26/14/1 upstream-queue 0 no bandwidth-profile
 
 ============
 ganti modem :
 
-configure equipment ont interface 1/1/4/9/22 admin-state down
-configure equipment ont interface 1/1/4/9/22 sernum <NEW-ONT-SERNUM>
-configure equipment ont interface 1/1/4/9/22 admin-state up
+configure equipment ont interface 1/1/4/7/26 admin-state down
+configure equipment ont interface 1/1/4/7/26 sernum <NEW-ONT-SERNUM>
+configure equipment ont interface 1/1/4/7/26 admin-state up
 
 ================ (1)
 CONFIG (ULANG/BARU)
@@ -89,67 +89,67 @@ NOKIA BARU :3FE46606CGBA08
 NOKIA LAMA :3FE46606BFHB21
 240W-F   3FE46606BFHB21
 
-configure equipment ont interface 1/1/4/9/22 sw-ver-pland 3FE46606BFHB21 sernum ALCL:B1C7F7FE plnd-var SIP subslocid WILDCARD voip-allowed iphost cvlantrans-mode local
-configure equipment ont interface 1/1/4/9/22 admin-state up
-configure equipment ont slot 1/1/4/9/22/14 planned-card-type veip plndnumdataports 1 plndnumvoiceports 0 admin-state up
-configure equipment ont slot 1/1/4/9/22/1 planned-card-type 10_100base plndnumdataports 8 plndnumvoiceports 0 admin-state up
-configure equipment ont slot 1/1/4/9/22/2 planned-card-type pots plndnumdataports 0 plndnumvoiceports 2 admin-state up
+configure equipment ont interface 1/1/4/7/26 sw-ver-pland 3FE46606BFHB21 sernum ALCL:B2F61A9F plnd-var SIP subslocid WILDCARD voip-allowed iphost cvlantrans-mode local
+configure equipment ont interface 1/1/4/7/26 admin-state up
+configure equipment ont slot 1/1/4/7/26/14 planned-card-type veip plndnumdataports 1 plndnumvoiceports 0 admin-state up
+configure equipment ont slot 1/1/4/7/26/1 planned-card-type 10_100base plndnumdataports 8 plndnumvoiceports 0 admin-state up
+configure equipment ont slot 1/1/4/7/26/2 planned-card-type pots plndnumdataports 0 plndnumvoiceports 2 admin-state up
 admin save
 =================(2)
 Command create service speedy :
 
-configure qos interface 1/1/4/9/22/14/1 upstream-queue 0 bandwidth-profile name:UP-400M
-configure qos interface 1/1/4/9/22/14/1 queue 0 shaper-profile name:DOWN-400M
-configure interface port uni:1/1/4/9/22/14/1 admin-up
-configure bridge port 1/1/4/9/22/14/1 max-unicast-mac 4
-configure bridge port 1/1/4/9/22/14/1 vlan-id 881 vlan-scope local network-vlan 589 tag single-tagged
-configure veip ont 1/1/4/9/22/14/1 domain-name 162301352005@telkom.net admin-state up
-configure ntp ont 1/1/4/9/22 key 565440511
-admin equipment ont interface 1/1/4/9/22 reboot with-active-image                                                                       
+configure qos interface 1/1/4/7/26/14/1 upstream-queue 0 bandwidth-profile name:UP-400M
+configure qos interface 1/1/4/7/26/14/1 queue 0 shaper-profile name:DOWN-400M
+configure interface port uni:1/1/4/7/26/14/1 admin-up
+configure bridge port 1/1/4/7/26/14/1 max-unicast-mac 4
+configure bridge port 1/1/4/7/26/14/1 vlan-id 881 vlan-scope local network-vlan 589 tag single-tagged
+configure veip ont 1/1/4/7/26/14/1 domain-name 162301337926@telkom.net admin-state up
+configure ntp ont 1/1/4/7/26 key 182077836
+admin equipment ont interface 1/1/4/7/26 reboot with-active-image                                                                       
 admin save
 
 
 ================== (3)
 Command create service useetv :
 
-configure qos interface 1/1/4/9/22/1/4 upstream-queue 0 bandwidth-profile name:UP-10M
-configure qos interface 1/1/4/9/22/1/4 queue 0 shaper-profile name:DOWN-40M
-configure interface port uni:1/1/4/9/22/1/4 admin-up
-configure bridge port 1/1/4/9/22/1/4 max-unicast-mac 4
-configure bridge port 1/1/4/9/22/1/4 vlan-id 111
-configure bridge port 1/1/4/9/22/1/4 pvid 111
-configure igmp channel vlan:1/1/4/9/22/1/4:111 max-num-group 10
-configure igmp channel vlan:1/1/4/9/22/1/4:111 preview-packages "[1...1024]"
+configure qos interface 1/1/4/7/26/1/4 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/4/7/26/1/4 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/4/7/26/1/4 admin-up
+configure bridge port 1/1/4/7/26/1/4 max-unicast-mac 4
+configure bridge port 1/1/4/7/26/1/4 vlan-id 111
+configure bridge port 1/1/4/7/26/1/4 pvid 111
+configure igmp channel vlan:1/1/4/7/26/1/4:111 max-num-group 10
+configure igmp channel vlan:1/1/4/7/26/1/4:111 preview-packages "[1...1024]"
 ================== (4)
 Command create service VOICE: 
 
-configure bridge port 1/1/4/9/22/voip
-configure qos interface 1/1/4/9/22/voip upstream-queue 0 bandwidth-profile name:UP-1M
-configure qos interface 1/1/4/9/22/voip queue 0 shaper-profile name:DOWN-1M
-configure bridge port 1/1/4/9/22/voip vlan-id 1197 vlan-scope network tag untagged
-configure bridge port 1/1/4/9/22/voip pvid 1197
-configure bridge port 1/1/4/9/22/vuni max-unicast-mac 2
-configure iphost ont ont:1/1/4/9/22/1 dhcp enabled vlan 1197 ping enabled traceroute enabled
-configure voice ont voip-config ont:1/1/4/9/22/1 protocol sip conf-method omci
-configure iphost ont ont:1/1/4/9/22/1 admin-state up
-configure voice ont sip-config ont:1/1/4/9/22/1 proxyserv-prof 20 outproxyserv-prof 20 reg-expire-time 3600 re-reg-head-start 360 aor-host-prt-prof 21 registrar-prof 24 uri-format sip-uri dscp 46 opt-tx-cntrl disable
-configure voice ont voice-sip-port 1/1/4/9/22/2/1 user-aor +625417260125 user-name +625417260125@telkom.net.id display-name +625417260125 password plain:pas321654 realm telkom.net.id ac-code-prof 2 app-serv-prof 8 ntwk-dp-prof 13
-configure voice ont voice-port 1/1/4/9/22/2/1 voipconfig sip voip-media-prof 2 admin-state unlocked
+configure bridge port 1/1/4/7/26/voip
+configure qos interface 1/1/4/7/26/voip upstream-queue 0 bandwidth-profile name:UP-1M
+configure qos interface 1/1/4/7/26/voip queue 0 shaper-profile name:DOWN-1M
+configure bridge port 1/1/4/7/26/voip vlan-id 1197 vlan-scope network tag untagged
+configure bridge port 1/1/4/7/26/voip pvid 1197
+configure bridge port 1/1/4/7/26/vuni max-unicast-mac 2
+configure iphost ont ont:1/1/4/7/26/1 dhcp enabled vlan 1197 ping enabled traceroute enabled
+configure voice ont voip-config ont:1/1/4/7/26/1 protocol sip conf-method omci
+configure iphost ont ont:1/1/4/7/26/1 admin-state up
+configure voice ont sip-config ont:1/1/4/7/26/1 proxyserv-prof 20 outproxyserv-prof 20 reg-expire-time 3600 re-reg-head-start 360 aor-host-prt-prof 21 registrar-prof 24 uri-format sip-uri dscp 46 opt-tx-cntrl disable
+configure voice ont voice-sip-port 1/1/4/7/26/2/1 user-aor +62541726xxxx user-name +62541726xxxx@telkom.net.id display-name +62541726xxxx password plain:pas321654 realm telkom.net.id ac-code-prof 2 app-serv-prof 8 ntwk-dp-prof 13
+configure voice ont voice-port 1/1/4/7/26/2/1 voipconfig sip voip-media-prof 2 admin-state unlocked
 
 POTS2:
-configure voice ont voice-sip-port 1/1/4/9/22/2/2 user-aor +625417272029 user-name +625417272029@telkom.net.id display-name +625417272029 password plain:telkom.net realm telkom.net.id ac-code-prof 2 app-serv-prof 8 ntwk-dp-prof 13
-configure voice ont voice-port 1/1/4/9/22/2/2 voipconfig sip voip-media-prof 2 admin-state unlocked
+configure voice ont voice-sip-port 1/1/4/7/26/2/2 user-aor +625417272029 user-name +625417272029@telkom.net.id display-name +625417272029 password plain:telkom.net realm telkom.net.id ac-code-prof 2 app-serv-prof 8 ntwk-dp-prof 13
+configure voice ont voice-port 1/1/4/7/26/2/2 voipconfig sip voip-media-prof 2 admin-state unlocked
 
 ===================
-configure voice ont pots 1/1/4/9/22/2/1 admin-state locked
-configure voice ont voice-sip-port 1/1/4/9/22/2/1 user-aor none user-name none
+configure voice ont pots 1/1/4/7/26/2/1 admin-state locked
+configure voice ont voice-sip-port 1/1/4/7/26/2/1 user-aor none user-name none
 
 display-name none password none realm telkom.net.id no ac-code-prof no app-serv-prof no
 ntwk-dp-prof
-configure voice ont voice-port 1/1/4/9/22/2/1 voip-media-prof none
-configure bridge no port 1/1/4/9/22/voip
-configure qos interface 1/1/4/9/22/voip queue [0...3] shaper-profile none
-configure qos interface 1/1/4/9/22/voip upstream-queue 0 no bandwidth-profile
+configure voice ont voice-port 1/1/4/7/26/2/1 voip-media-prof none
+configure bridge no port 1/1/4/7/26/voip
+configure qos interface 1/1/4/7/26/voip queue [0...3] shaper-profile none
+configure qos interface 1/1/4/7/26/voip upstream-queue 0 no bandwidth-profile
 
 ================
 === port internet === 
@@ -168,11 +168,11 @@ configure qos interface 1/1/3/9/17/1/3 queue 0 shaper-profile name:DOWN-40M
 configure interface port uni:1/1/3/9/17/1/3 admin-up
 
 === port use tv ===
-configure qos interface 1/1/4/9/22/1/4 upstream-queue 0 bandwidth-profile name:UP-10M
-configure qos interface 1/1/4/9/22/1/4 queue 0 shaper-profile name:DOWN-40M
-configure interface port uni:1/1/4/9/22/1/4 admin-up
-configure bridge port 1/1/4/9/22/1/4 max-unicast-mac 4
-configure bridge port 1/1/4/9/22/1/4 vlan-id 111
-configure bridge port 1/1/4/9/22/1/4 pvid 111
-configure igmp channel vlan:1/1/4/9/22/1/4:111 max-num-group 10
-configure igmp channel vlan:1/1/4/9/22/1/4:111 preview-packages "[1...1024]"
+configure qos interface 1/1/4/7/26/1/4 upstream-queue 0 bandwidth-profile name:UP-10M
+configure qos interface 1/1/4/7/26/1/4 queue 0 shaper-profile name:DOWN-40M
+configure interface port uni:1/1/4/7/26/1/4 admin-up
+configure bridge port 1/1/4/7/26/1/4 max-unicast-mac 4
+configure bridge port 1/1/4/7/26/1/4 vlan-id 111
+configure bridge port 1/1/4/7/26/1/4 pvid 111
+configure igmp channel vlan:1/1/4/7/26/1/4:111 max-num-group 10
+configure igmp channel vlan:1/1/4/7/26/1/4:111 preview-packages "[1...1024]"

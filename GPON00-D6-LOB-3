@@ -165,3 +165,41 @@ pon-onu-mng gpon-onu_1/4/15:5
   vlan-filter veip 1 pri 0 vlan 111
   vlan-filter veip 1 pri 0 vlan 200
 !
+
+=============2
+onu 43 type OPEN_FIBERHOME sn FHTT95B2D580
+!
+interface gpon-onu_1/17/13:43
+  name 162301345293|FHTT95B2D580
+  tcont 1 name USEETV profile UP-10M
+  tcont 2 name SPEEDY profile UP-20M
+  tcont 3 name VOIP profile UP-1M
+  gemport 1 name USEETV tcont 1
+  gemport 1 traffic-limit downstream DOWN-20M 
+  gemport 2 name SPEEDY tcont 2
+  gemport 2 traffic-limit downstream DOWN-50M 
+  gemport 3 name VOIP tcont 3
+  gemport 3 traffic-limit downstream DOWN-1M 
+  service-port 1 vport 1 user-vlan 111 vlan 111 
+  service-port 1 description USEETV
+  service-port 2 vport 2 user-vlan 200 vlan 520 
+  service-port 2 description SPEEDY
+  service-port 3 vport 3 user-vlan 100 vlan 2917 
+  service-port 3 description VOIP
+  port-identification format DSL-FORUM-PON vport 2
+  pppoe-intermediate-agent enable vport 2
+!
+igmp  mvlan 110 source-port xgei_1/19/1
+igmp  mvlan 110 receive-port gpon-onu_1/17/13:43 vport 1
+
+pon-onu-mng gpon-onu_1/17/13:43
+  service USEETV gemport 1 vlan 111
+  service SPEEDY gemport 2 vlan 200
+  service VOIP gemport 3 vlan 100
+  switchport-bind switch_0/1 veip 1
+  mvlan 110
+  vlan-filter-mode veip 1 tag-filter vlan-filter untag-filter transparent
+  vlan-filter veip 1 pri 0 vlan 100
+  vlan-filter veip 1 pri 0 vlan 111
+  vlan-filter veip 1 pri 0 vlan 200
+!

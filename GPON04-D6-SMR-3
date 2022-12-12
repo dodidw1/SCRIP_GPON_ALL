@@ -1,10 +1,10 @@
 Tcont 1 SPEEDY 
 ================
-onu 4 type ZTEG-F609 sn ZTEGC4A35027 vport-mode  gemport
+onu 2 type ZTEG-F609 sn ZTEGCCAAEF78 vport-mode  gemport
 !
-interface gpon-onu_1/5/5:4
-  name 162301201683|ZTEGC4A35027
-  description 162301201683|ZTEGC4A35027
+interface gpon-onu_1/13/2:2
+  name 161318000477|ZTEGCCAAEF78
+  description 161318000477|ZTEGCCAAEF78
   tcont 1 name SPEEDY profile UP-10M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
@@ -25,17 +25,17 @@ interface gpon-onu_1/5/5:4
   pppoe-intermediate-agent enable vport 1
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/5/5:4 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/13/2:2 vport 2
 
 
-pon-onu-mng gpon-onu_1/5/5:4
+pon-onu-mng gpon-onu_1/13/2:2
   service SPEEDY gemport 1 vlan 496
   service USEETV gemport 2 vlan 111
   service VOIP gemport 3 vlan 3009
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan3009 host 2
-  wan-ip 1 mode pppoe username 	@telkom.net password linjzd30xd vlan-profile wan496 host 1
-  sip-service pots_0/1 profile sipprofile_110 userid +62541771688 username +62541771688@telkom.net.id password pas321654 media-profile mediaprofile
+  sip-service pots_0/1 profile sipprofile_110 userid +625416224334 username +625416224334@telkom.net.id password pas321654 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 161318000477@telkom.net password 402686428 vlan-profile wan496 host 1
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110
@@ -53,11 +53,11 @@ pon-onu-mng gpon-onu_1/5/5:4
 TCONT2
 
 ================
-onu 3 type ZTEG-F609 sn ZTEGC674EC30 vport-mode  gemport
+onu 19 type ZTEG-F609 sn ZTEGC1DE6E2E vport-mode  gemport
 !
-interface gpon-onu_1/7/5:3
-  name 161301203814|ZTEGC674EC30
-  description 161301203814|ZTEGC674EC30
+interface gpon-onu_1/9/2:19
+  name 162311800913|ZTEGC1DE6E2E
+  description 162311800913|ZTEGC1DE6E2E
   tcont 1 name USEETV profile UP-10M
   tcont 2 name SPEEDY profile UP-20M
   tcont 3 name VOIP profile UP-1M
@@ -78,17 +78,17 @@ interface gpon-onu_1/7/5:3
   pppoe-intermediate-agent enable vport 2
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/7/5:3 vport 1
+igmp  mvlan 110 receive-port gpon-onu_1/9/2:19 vport 1
 
 
-pon-onu-mng gpon-onu_1/7/5:3
+pon-onu-mng gpon-onu_1/9/2:19
   service USEETV gemport 1 vlan 111
   service SPEEDY gemport 2 vlan 496
   service VOIP gemport 3 vlan 3009
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan3009 host 2
-  sip-service pots_0/1 profile sipprofile_110 userid +62541736427 username +62541736427@telkom.net.id password pas321654 media-profile mediaprofile
-  wan-ip 1 mode pppoe username 161301203814@telkom.net password AKMSFK54HA vlan-profile wan496 host 1
+  sip-service pots_0/1 profile sipprofile_110 userid +625416525810 username +625416525810@telkom.net.id password pas321654 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 162311800913@telkom.net password 765085173 vlan-profile wan496 host 1
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110

@@ -206,15 +206,15 @@ pon-onu-mng gpon-onu_1/7/12:21
 !
 
 ####################################tc1
-  onu 22 type OPEN_FIBERHOME sn FHTT9C565B18
+  onu 41 type OPEN_FIBERHOME sn FHTT95C01B88
   !
-interface gpon-onu_1/12/3:22
-  name 162301355836  | FHTT9C565B18
-  tcont 1 name SPEEDY profile UP-10M
+interface gpon-onu_1/15/2:41
+  name 161314001127  | FHTT95C01B88
+  tcont 1 name SPEEDY profile UP-50M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
   gemport 1 name SPEEDY tcont 1
-  gemport 1 traffic-limit downstream DOWN-10M 
+  gemport 1 traffic-limit downstream DOWN-100M 
   gemport 2 name USEETV tcont 2
   gemport 2 traffic-limit downstream DOWN-10M 
   gemport 3 name VOIP tcont 3
@@ -223,15 +223,15 @@ interface gpon-onu_1/12/3:22
   service-port 1 description SPEEDY
   service-port 2 vport 2 user-vlan 111 vlan 111 
   service-port 2 description USEETV
-  service-port 3 vport 3 user-vlan 100 vlan 513 
+  service-port 3 vport 3 user-vlan 100 vlan 514 
   service-port 3 description VOIP
   port-identification format DSL-FORUM-PON vport 1
   pppoe-intermediate-agent enable vport 1
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/12/3:22 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/15/2:41 vport 2
 
-pon-onu-mng gpon-onu_1/12/3:22
+pon-onu-mng gpon-onu_1/15/2:41
   service USEETV gemport 2 vlan 111
   service SPEEDY gemport 1 vlan 200
   service VOIP gemport 3 vlan 100

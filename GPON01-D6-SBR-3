@@ -1,11 +1,56 @@
 GPON SBR 01 172.20.163.134
 
-====tcon2
-onu 8 type ZTEG-F609 sn ZTEGD10A3E64 vport-mode  gemport
+
+====tcon3
+onu 3 type ZTEG-F609 sn ZTEGD0527FD4 vport-mode  gemport
 !
-interface gpon-onu_1/15/11:8
-  name 162303201649|ZTEGD10A3E64
-  description 162303201649|ZTEGD10A3E64
+interface gpon-onu_1/8/9:3
+  name 162301320531|ZTEGD0527FD4
+  description 162301320531|ZTEGD0527FD4
+  tcont 1 name USEETV profile UP-10M
+  tcont 2 name VOIP profile UP-10M
+  tcont 3 name SPEEDY profile UP-50M
+  gemport 1 name USEETV tcont 1
+  gemport 1 traffic-limit downstream DOWN-10M
+  gemport 2 name VOIP tcont 2
+  gemport 2 traffic-limit downstream DOWN-10M
+  gemport 3 name SPEEDY tcont 3
+  gemport 3 traffic-limit downstream DOWN-100M
+  service-port 1 vport 1 user-vlan 111 vlan 111
+  service-port 1 description USEETV
+  service-port 2 vport 2 user-vlan 772 vlan 772
+  service-port 2 description VOIP
+  service-port 3 vport 3 user-vlan 2804 vlan 2804
+  service-port 3 description SPEEDY
+  port-identification format DSL-FORUM-PON vport 3
+  dhcpv4-l2-relay-agent enable vport 2
+  pppoe-intermediate-agent enable vport 3
+!
+
+igmp  mvlan 110 source-port xgei_1/11/3
+igmp  mvlan 110 receive-port gpon-onu_1/8/9:3 vport 1
+
+pon-onu-mng gpon-onu_1/8/9:3
+  service USEETV gemport 1 vlan 111
+  service VOIP gemport 2 vlan 772
+  service SPEEDY gemport 3 vlan 2804
+  voip protocol sip
+  voip-ip mode dhcp vlan-profile batchVlan772 host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode pppoe username 162301320531@telkom.net password 224384493 vlan-profile wan2804 host 1
+  sip-service pots_0/1 profile sipprofile userid +6254126xxxx username +6254126xxxx@telkom.net.id password pas321654 media-profile mediaprofile
+  vlan port eth_0/4 mode hybrid def-vlan 111
+  dhcp-ip ethuni eth_0/4 from-internet
+  mvlan 110
+  mvlan tag eth_0/4 strip
+  wan 1 service internet host 1
+!
+====tcon2
+onu 3 type ZTEG-F609 sn ZTEGD0527FD4 vport-mode  gemport
+!
+interface gpon-onu_1/8/9:3
+  name 162301320531|ZTEGD0527FD4
+  description 162301320531|ZTEGD0527FD4
   tcont 1 name USEETV profile UP-10M
   tcont 2 name SPEEDY profile UP-50M
   tcont 3 name VOIP profile UP-10M
@@ -27,16 +72,16 @@ interface gpon-onu_1/15/11:8
 !
 
 igmp  mvlan 110 source-port xgei_1/11/3
-igmp  mvlan 110 receive-port gpon-onu_1/15/11:8 vport 1
+igmp  mvlan 110 receive-port gpon-onu_1/8/9:3 vport 1
 
-pon-onu-mng gpon-onu_1/15/11:8
+pon-onu-mng gpon-onu_1/8/9:3
   service USEETV gemport 1 vlan 111
   service SPEEDY gemport 2 vlan 2804
   service VOIP gemport 3 vlan 772
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan772 host 2
   voip-ip ping-response enable traceroute-response enable
-  wan-ip 1 mode pppoe username 161311004966@telkom.net password 913334144 vlan-profile wan2804 host 1
+  wan-ip 1 mode pppoe username 162301320531@telkom.net password 224384493 vlan-profile wan2804 host 1
   sip-service pots_0/1 profile sipprofile userid +6254126xxxx username +6254126xxxx@telkom.net.id password pas321654 media-profile mediaprofile
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
