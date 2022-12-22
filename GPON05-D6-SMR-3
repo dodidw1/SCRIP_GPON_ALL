@@ -206,10 +206,11 @@ pon-onu-mng gpon-onu_1/7/12:21
 !
 
 ####################################tc1
-  onu 41 type OPEN_FIBERHOME sn FHTT95C01B88
+OPEN_HUAWEI
+  onu 43 type OPEN_HUAWEI sn HWTCF75354A2
   !
-interface gpon-onu_1/15/2:41
-  name 161314001127  | FHTT95C01B88
+interface gpon-onu_1/8/6:43
+  name 162301917810  | HWTCF75354A2
   tcont 1 name SPEEDY profile UP-50M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
@@ -226,12 +227,13 @@ interface gpon-onu_1/15/2:41
   service-port 3 vport 3 user-vlan 100 vlan 514 
   service-port 3 description VOIP
   port-identification format DSL-FORUM-PON vport 1
+  dhcpv4-l2-relay-agent enable vport 3
   pppoe-intermediate-agent enable vport 1
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/15/2:41 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/8/6:43 vport 2
 
-pon-onu-mng gpon-onu_1/15/2:41
+pon-onu-mng gpon-onu_1/8/6:43
   service USEETV gemport 2 vlan 111
   service SPEEDY gemport 1 vlan 200
   service VOIP gemport 3 vlan 100

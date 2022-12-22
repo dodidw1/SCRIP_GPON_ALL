@@ -2,19 +2,19 @@ cari sn*
 show equipment ont interface | match exact:F26B1D9A
 
 cek redaman*
-show equipment ont optics 1/1/4/7/4
+show equipment ont optics 1/1/1/4/13
 
 Cek mac*
-configure interface port uni:1/1/4/7/4/1/4
-show vlan bridge-port-fdb 1/1/4/7/4/1/4
+configure interface port uni:1/1/1/4/13/1/4
+show vlan bridge-port-fdb 1/1/1/4/13/1/4
 
 Cek voice*
-info configure voice ont voice-sip-port 1/1/4/7/4/2/1
-show voice ont pots operational-data 1/1/4/7/4/2/1
+info configure voice ont voice-sip-port 1/1/1/4/13/2/1
+show voice ont pots operational-data 1/1/1/4/13/2/1
 
 hapus Total*
-configure equipment ont interface 1/1/4/7/4 admin-state down
-configure equipment ont no interface 1/1/4/7/4
+configure equipment ont interface 1/1/1/4/13 admin-state down
+configure equipment ont no interface 1/1/1/4/13
 
 
 

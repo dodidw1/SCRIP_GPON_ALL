@@ -10,12 +10,12 @@ mohon bantuan Reset password : 123456
 IP : 172.20.167.101 FH
 terimakasih rekann...  
 ====tc1
-onu 4 type ZTEG-F609 sn ZTEGCD77508F vport-mode  gemport
+onu 11 type ZTEG-F609 sn ZTEGD11874CC vport-mode  gemport
 !
 
-interface gpon-onu_1/3/7:4
-  name 161316006857|ZTEGCD77508F
-  description 161316006857|ZTEGCD77508F
+interface gpon-onu_1/6/5:11
+  name 161316009786|ZTEGD11874CC
+  description 161316009786|ZTEGD11874CC
   tcont 1 name SPEEDY profile UP-20M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOICE profile UP-1M
@@ -32,21 +32,22 @@ interface gpon-onu_1/3/7:4
   service-port 3 vport 3 user-vlan 500 vlan 500 
   service-port 3 description VOICE
   port-identification format DSL-FORUM-PON vport 1
+  dhcpv4-l2-relay-agent enable vport 3
   pppoe-intermediate-agent enable vport 1
 !
 
 igmp  mvlan 110 source-port xgei_1/10/1
-igmp  mvlan 110 receive-port gpon-onu_1/3/7:4 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/6/5:11 vport 2
 
-pon-onu-mng gpon-onu_1/3/7:4
+pon-onu-mng gpon-onu_1/6/5:11
   service SPEEDY gemport 1 vlan 2829
   service USEETV gemport 2 vlan 111
   service VOICE gemport 3 vlan 500
   voip protocol sip
   voip-ip mode dhcp id 1522652860605 vlan-profile batchVlan500 host 2
   voip-ip ping-response enable traceroute-response enable
-  sip-service pots_0/1 profile sipprofile userid +625492039428 username +625492039428@telkom.net.id password pas321654 media-profile mediaprofile
-  wan-ip 1 mode pppoe username 161316006857@telkom.net password 178287220 vlan-profile wan2829 host 1
+  sip-service pots_0/1 profile sipprofile userid +625492037549 username +625492037549@telkom.net.id password pas321654 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 161316009786@telkom.net password 625504713 vlan-profile wan2829 host 1
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110

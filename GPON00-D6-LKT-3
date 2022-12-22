@@ -139,10 +139,10 @@ pon-onu-mng gpon-onu_1/7/9:6
 
 
 ====================== tcont3 FH
-onu 15 type OPEN_FIBERHOME sn FHTT94815610
+onu 8 type OPEN_FIBERHOME sn FHTT9617AC20
 !
-interface gpon-onu_1/4/6:15
-  name 161305201119|FHTT94815610
+interface gpon-onu_1/8/14:8
+  name 162306320932|FHTT9617AC20
   tcont 1 name USEETV profile UP-10M
   tcont 2 name VOIP profile UP-1M
   tcont 3 name SPEEDY profile UP-50M
@@ -159,13 +159,14 @@ interface gpon-onu_1/4/6:15
   service-port 3 vport 3 user-vlan 200 vlan 570 
   service-port 3 description SPEEDY
   port-identification format DSL-FORUM-PON vport 3
+  dhcpv4-l2-relay-agent enable vport 2
   pppoe-intermediate-agent enable vport 3
 !
 
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/4/6:15 vport 1
+igmp  mvlan 110 receive-port gpon-onu_1/8/14:8 vport 1
 
-pon-onu-mng gpon-onu_1/4/6:15
+pon-onu-mng gpon-onu_1/8/14:8
   service USEETV gemport 1 vlan 111
   service VOIP gemport 2 vlan 100
   service SPEEDY gemport 3 vlan 200
@@ -198,6 +199,7 @@ interface gpon-onu_1/9/4:5
   service-port 3 vport 3 user-vlan 100 vlan 507 
   service-port 3 description VOIP
   port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 3
   pppoe-intermediate-agent enable vport 2
 !
 
@@ -218,10 +220,10 @@ pon-onu-mng gpon-onu_1/9/4:5
 ======================
 TCONT1
 
-onu 6 type OPEN_FIBERHOME sn FHTT9C843698
+onu 16 type OPEN_FIBERHOME sn FHTT9617AC20
 !
-interface gpon-onu_1/4/4:6
-  name 161305212200|FHTT9C843698
+interface gpon-onu_1/14/4:16
+  name 162306321721|FHTT9617AC20
   tcont 1 name SPEEDY profile UP-20M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
@@ -235,16 +237,17 @@ interface gpon-onu_1/4/4:6
   service-port 1 description SPEEDY
   service-port 2 vport 2 user-vlan 111 vlan 111 
   service-port 2 description USEETV
-  service-port 3 vport 3 user-vlan 100 vlan 506 
+  service-port 3 vport 3 user-vlan 100 vlan 505
   service-port 3 description VOIP
   port-identification format DSL-FORUM-PON vport 1
+  dhcpv4-l2-relay-agent enable vport 3
   pppoe-intermediate-agent enable vport 1
 !
 
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/4/4:6 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/14/4:16 vport 2
 
-pon-onu-mng gpon-onu_1/4/4:6
+pon-onu-mng gpon-onu_1/14/4:16
   service SPEEDY gemport 1 vlan 200
   service USEETV gemport 2 vlan 111
   service VOIP gemport 3 vlan 100
@@ -277,6 +280,7 @@ pon-onu-mng gpon-onu_1/4/4:6
   service-port 3 vport 3 user-vlan 100 vlan 508 
   service-port 3 description VOIP
   port-identification format DSL-FORUM-PON vport 2
+  dhcpv4-l2-relay-agent enable vport 3
   pppoe-intermediate-agent enable vport 2
 !
 igmp  mvlan 110 source-port smartgroup1

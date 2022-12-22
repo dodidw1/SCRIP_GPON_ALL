@@ -1,17 +1,17 @@
 
 UPGRADE================ 2
-onu 7 type ZTEG-F609 sn ZTEGC1D98963 vport-mode  gemport
+onu 4 type ZTEG-F609 sn ZTEGD10B53A0 vport-mode  gemport
 !
-interface gpon-onu_1/3/2:7
-  name  162308800030@telkom.net|ZTEGC1D98963
-  description  162308800030@telkom.net|ZTEGC1D98963
+interface gpon-onu_1/16/12:4
+  name  162301311128|ZTEGD10B53A0
+  description  162301311128|ZTEGD10B53A0
   tcont 1 name VOIP profile UP-1M
-  tcont 2 name SPEEDY profile UP-10M
+  tcont 2 name SPEEDY profile UP-20M
   tcont 3 name USEETV profile UP-10M
   gemport 1 name VOIP tcont 1
   gemport 1 traffic-limit downstream DOWN-1M 
   gemport 2 name SPEEDY tcont 2
-  gemport 2 traffic-limit downstream DOWN-20M 
+  gemport 2 traffic-limit downstream DOWN-50M 
   gemport 3 name USEETV tcont 3
   gemport 3 traffic-limit downstream DOWN-10M 
   service-port 1 vport 1 user-vlan 780 vlan 780 
@@ -26,16 +26,16 @@ interface gpon-onu_1/3/2:7
   !
  
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/3/2:7 vport 3
+igmp  mvlan 110 receive-port gpon-onu_1/16/12:4 vport 3
   
-pon-onu-mng gpon-onu_1/3/2:7
+pon-onu-mng gpon-onu_1/16/12:4
   service VOIP gemport 1 vlan 780
   service SPEEDY gemport 2 vlan 2806
   service USEETV gemport 3 vlan 111
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan780 host 2
-  wan-ip 1 mode pppoe username 162308800030@telkom.net password 409523893 vlan-profile wan2806 host 1
-  sip-service pots_0/1 profile sipprofile userid +625412774544 username +625412774544@telkom.net.id password pas321654 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 162301311128@telkom.net password 795861336 vlan-profile wan2806 host 1
+  sip-service pots_0/1 profile sipprofile userid +62541277xxxx username +62541277xxxx@telkom.net.id password pas321654 media-profile mediaprofile
   vlan port eth_0/4 mode hybrid def-vlan 111
   dhcp-ip ethuni eth_0/4 from-internet
   mvlan 110

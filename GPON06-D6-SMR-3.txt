@@ -109,15 +109,15 @@ wan-ip 5 mode pppoe username 162301801064@telkom.net password AUJSNX57XO vlan-pr
 
 
 ==============================1
- onu 8 type OPEN_FIBERHOME sn FHTT917EE838
+ onu 10 type OPEN_FIBERHOME sn FHTT96FDFEA0
   !
-interface gpon-onu_1/13/6:8
-  name 162301319642  | FHTT917EE838
-  tcont 1 name SPEEDY profile UP-10M
+interface gpon-onu_1/12/13:10
+  name 161314008770  | FHTT96FDFEA0
+  tcont 1 name SPEEDY profile UP-20M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
   gemport 1 name SPEEDY tcont 1
-  gemport 1 traffic-limit downstream DOWN-20M 
+  gemport 1 traffic-limit downstream DOWN-50M 
   gemport 2 name USEETV tcont 2
   gemport 2 traffic-limit downstream DOWN-10M 
   gemport 3 name VOIP tcont 3
@@ -132,9 +132,9 @@ interface gpon-onu_1/13/6:8
   pppoe-intermediate-agent enable vport 1
 !
 igmp  mvlan 110 source-port xgei_1/10/1 
-igmp  mvlan 110 receive-port gpon-onu_1/13/6:8 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/12/13:10 vport 2
 
-pon-onu-mng gpon-onu_1/13/6:8
+pon-onu-mng gpon-onu_1/12/13:10
   service USEETV gemport 2 vlan 111
   service SPEEDY gemport 1 vlan 200
   service VOIP gemport 3 vlan 100

@@ -217,10 +217,10 @@ pon-onu-mng gpon-onu_1/3/11:13
 
 
 ======================tcont 1
-  onu 6 type OPEN_FIBERHOME sn FHTT9C58B310
+  onu 4 type OPEN_FIBERHOME sn FHTT96EC5DB8
   !
-interface gpon-onu_1/3/10:6
-  name 161305201069|FHTT9C58B310
+interface gpon-onu_1/6/4:4
+  name 162305203606|FHTT96EC5DB8
   tcont 1 name SPEEDY profile UP-20M
   tcont 2 name USEETV profile UP-10M
   tcont 3 name VOIP profile UP-1M
@@ -240,9 +240,9 @@ interface gpon-onu_1/3/10:6
   pppoe-intermediate-agent enable vport 1
 !
 igmp  mvlan 110 source-port smartgroup1
-igmp  mvlan 110 receive-port gpon-onu_1/3/10:6 vport 2
+igmp  mvlan 110 receive-port gpon-onu_1/6/4:4 vport 2
 
-pon-onu-mng gpon-onu_1/3/10:6
+pon-onu-mng gpon-onu_1/6/4:4
   service SPEEDY gemport 1 vlan 200
   service USEETV gemport 2 vlan 111
   service VOIP gemport 3 vlan 100

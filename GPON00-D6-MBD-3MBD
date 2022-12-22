@@ -97,38 +97,44 @@ sip-service pots_0/1 profile sipprofile userid +625483034501 username +625483034
 
 =================
 ==TCONT1==
-onu 18 type ZTEG-F609 sn ZTEGC8252788 vport-mode  gemport
+onu 16 type ZTEG-F609 sn ZTEGC8957CAD vport-mode  gemport
 !
 
-interface gpon-onu_1/2/1:18
-  name 162318800713|ZTEGC8252788
-  description 
-  tcont 1 name SPEEDY profile UP-2253KB0
-  tcont 2 name VOIP profile UP-564KF5
+interface gpon-onu_1/1/1:16
+  name 161302201651|ZTEGC8957CAD
+  description 161302201651|ZTEGC8957CAD
+  tcont 1 name SPEEDY profile UP-20M
+  tcont 2 name VOIP profile UP-5M
+  tcont 3 name USEETV profile UP-10M
   gemport 1 name SPEEDY tcont 1
-  gemport 1 traffic-limit downstream DOWN-11264KB0 
+  gemport 1 traffic-limit downstream DOWN-50M 
   gemport 2 name VOIP tcont 2
-  gemport 2 traffic-limit downstream DOWN-564KF5 
+  gemport 2 traffic-limit downstream DOWN-5M 
+  gemport 3 name USEETV tcont 3
+  gemport 3 traffic-limit downstream DOWN-10M 
   service-port 1 vport 1 user-vlan 2783 vlan 2783 
   service-port 1 description SPEEDY
   service-port 2 vport 2 user-vlan 502 vlan 502 
   service-port 2 description VOIP
+  service-port 3 vport 3 user-vlan 111 vlan 111 
+  service-port 3 description USEETV
   port-identification format DSL-FORUM-PON vport 1
   dhcpv4-l2-relay-agent enable vport 2
   pppoe-intermediate-agent enable vport 1
 !
 
 igmp  mvlan 110 source-port xgei_1/4/2
-igmp  mvlan 110 receive-port gpon-onu_1/2/1:18 vport 3
+igmp  mvlan 110 receive-port gpon-onu_1/1/1:16 vport 3
 
-pon-onu-mng gpon-onu_1/2/1:18
+pon-onu-mng gpon-onu_1/1/1:16
   service SPEEDY gemport 1 vlan 2783
   service VOIP gemport 2 vlan 502
+  service USEETV gemport 3 vlan 111
   voip protocol sip
   voip-ip mode dhcp vlan-profile batchVlan502 host 2
   voip-ip ping-response enable traceroute-response enable
-  wan-ip 1 mode pppoe username 162318800713@telkom.net password 202789105 vlan-profile wan2783 host 1
-  sip-service pots_0/1 profile sipprofile_m40b10 userid +625417801516 username +625417801516@telkom.net.id password 104837911 vmail-expiration 0 media-profile mediaprofile
+  wan-ip 1 mode pppoe username 161302201651@telkom.net password 104809706 vlan-profile wan2783 host 1
+  sip-service pots_0/1 profile sipprofile_m40b10 userid +625417801347 username +625417801347@telkom.net.id password pas321654 vmail-expiration 0 media-profile mediaprofile
   veip 1 port udp 8080 host 2
   tr069-mgmt 1 acs http://acs.telkom.net:9090/web/tr069 validate basic username CPE password CPE
   wan 1 service internet host 1
